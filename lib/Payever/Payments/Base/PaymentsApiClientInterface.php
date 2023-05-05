@@ -6,7 +6,7 @@
  * @category  Base
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
@@ -16,9 +16,13 @@ namespace Payever\Sdk\Payments\Base;
 use Payever\Sdk\Core\Base\CommonApiClientInterface;
 use Payever\Sdk\Core\Base\ResponseInterface;
 use Payever\Sdk\Payments\Http\RequestEntity\AuthorizePaymentRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\ClaimPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
+use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequestV3;
 use Payever\Sdk\Payments\Http\RequestEntity\ListPaymentsRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ShippingGoodsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\PaymentItemEntity;
@@ -51,6 +55,17 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
     public function createPaymentV2Request(CreatePaymentV2Request $createPaymentRequest);
 
     /**
+     * Sends a request to create payment for v2 version of api
+     *
+     * @link https://docs.payever.org/shopsystems/api/getting-started/api/create-payment/create-payments Documentation
+     *
+     * @param CreatePaymentV3Request $createPaymentRequest
+     *
+     * @return ResponseInterface
+     */
+    public function createPaymentV3Request(CreatePaymentV3Request $createPaymentRequest);
+
+    /**
      * Sends a request to submit payment
      *
      * @link https://docs.payever.org/shopsystems/api/getting-started/api/create-payment/submit-payments Documentation
@@ -60,6 +75,26 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return ResponseInterface
      */
     public function submitPaymentRequest(SubmitPaymentRequest $createPaymentRequest);
+
+    /**
+     * Sends a request to submit payment
+     *
+     * @link https://docs.payever.org/shopsystems/api/getting-started/api/create-payment/submit-payments Documentation
+     *
+     * @param SubmitPaymentRequestV3 $createPaymentRequest
+     *
+     * @return ResponseInterface
+     */
+    public function submitPaymentRequestV3(SubmitPaymentRequestV3 $submitPaymentRequest);
+
+    /**
+     * Search company
+     *
+     * @param CompanySearchRequest $companySearchRequest
+     *
+     * @return ResponseInterface
+     */
+    public function searchCompany(CompanySearchRequest $companySearchRequest);
 
     /**
      * Requests payment details
@@ -189,6 +224,18 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return ResponseInterface
      */
     public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null);
+
+    /**
+     * Sends a request to claim payment
+     *
+     * @link https://docs.payever.org/api/payments/order-management/claim Documentation
+     *
+     * @param string $paymentId Payment ID
+     * @param ClaimPaymentRequest $paymentRequest Specify the claim payment request.
+     *
+     * @return ResponseInterface
+     */
+    public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest);
 
     /**
      * Requests serialized API Call record

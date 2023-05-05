@@ -6,7 +6,7 @@
  * @category  MessageEntity
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
@@ -35,6 +35,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method string                           getThumbnail3()
  * @method PaymentOptionOptionsEntity       getOptions()
  * @method PaymentOptionTranslationEntity[] getTranslations()
+ * @method bool                             getIsSubmitMethod()
  * @method self                             setId(string $id)
  * @method self                             setName(string $name)
  * @method self                             setVariableFee(float $variableFee)
@@ -50,6 +51,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                             setThumbnail1(string $thumbnail1)
  * @method self                             setThumbnail2(string $thumbnail2)
  * @method self                             setThumbnail3(string $thumbnail3)
+ * @method self                             setIsSubmitMethod(bool $value)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @SuppressWarnings(PHPMD.TooManyFields)
@@ -111,6 +113,11 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     protected $translations;
 
     /**
+     * @var bool
+     */
+    protected $isSubmitMethod;
+
+    /**
      * Is redirect method
      *
      * @return bool
@@ -153,4 +160,15 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
             $this->translations[] = new PaymentOptionTranslationEntity($item);
         }
     }
+
+    /**
+     * Is submit method
+     *
+     * @return bool
+     */
+    public function isSubmitMethod()
+    {
+        return (bool) $this->isSubmitMethod;
+    }
+
 }

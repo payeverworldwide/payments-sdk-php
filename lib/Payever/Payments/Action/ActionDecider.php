@@ -6,7 +6,7 @@
  * @category  Action
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
@@ -201,6 +201,22 @@ class ActionDecider implements ActionDeciderInterface
             static::ACTION_SHIPPING_GOODS,
             $throwException
         );
+    }
+
+    /**
+     * Check if the claim action for the transaction is allowed
+     *
+     * @param string $paymentId
+     * @param bool $throwException
+     *
+     * @return bool
+     *
+     * @throws \Exception when $throwException is true and target action is not allowed
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    public function isClaimAllowed($paymentId, $throwException = true)
+    {
+        return $this->isActionAllowed($paymentId, static::ACTION_CLAIM, $throwException);
     }
 
     /**

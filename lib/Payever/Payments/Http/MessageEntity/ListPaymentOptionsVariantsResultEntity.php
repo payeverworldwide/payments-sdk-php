@@ -7,7 +7,7 @@
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
  * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */

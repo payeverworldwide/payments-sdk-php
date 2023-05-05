@@ -13,8 +13,12 @@
    },
    "autoload-dev" : {
       "classmap" : [
-         "lib"
-      ]
+         "lib",
+         "tests"
+      ],
+      "psr-4" : {
+         "Payever\\Tests\\" : "tests/"
+      }
    },
    "description" : "PHP SDK for payever payments",
    "homepage" : "https://github.com/payeverworldwide/payments-sdk-php",

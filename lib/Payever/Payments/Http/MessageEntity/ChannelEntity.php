@@ -6,7 +6,7 @@
  * @category  MessageEntity
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
@@ -16,7 +16,7 @@ namespace Payever\Sdk\Payments\Http\MessageEntity;
 use Payever\Sdk\Core\Base\MessageEntity;
 
 /**
- * This class represents Cart Item Entity
+ * This class represents Channel Entity
  *
  * @method string           getName()
  * @method string           getType()
@@ -29,16 +29,25 @@ use Payever\Sdk\Core\Base\MessageEntity;
  */
 class ChannelEntity extends MessageEntity
 {
-    /** @var string $name */
+    /**
+     * @var string
+     */
     protected $name;
 
-    /** @var string $type */
+    /**
+     * @var string
+     */
     protected $type;
 
-    /** @var string $source */
+    /**
+     * @var string
+     */
     protected $source;
 
-    /** @var integer channelSetId */
+    /**
+     * @deprecated
+     * @var int
+     */
     protected $channelSetId;
 
     /**

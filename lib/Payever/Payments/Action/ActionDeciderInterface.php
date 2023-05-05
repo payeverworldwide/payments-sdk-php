@@ -6,7 +6,7 @@
  * @category  Action
  * @package   Payever\Payments
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2021 payever GmbH
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
@@ -29,6 +29,7 @@ interface ActionDeciderInterface
     const ACTION_RETURN = 'return';
     const ACTION_REFUND = 'refund';
     const ACTION_SHIPPING_GOODS = 'shipping_goods';
+    const ACTION_CLAIM = 'claim';
     const ACTION_UPLOAD = 'upload';
     const ACTION_EDIT = 'edit';
 
