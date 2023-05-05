@@ -41,8 +41,7 @@ class CompanySearchRequest extends RequestEntity
     public function getRequired()
     {
         return [
-            'company',
-            'address'
+            'company'
         ];
     }
 
