@@ -29,6 +29,8 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_SANTANDER_NO_INSTALLMENT = 'santander_installment_no';
     const METHOD_SANTANDER_DK_INSTALLMENT = 'santander_installment_dk';
     const METHOD_SANTANDER_SE_INSTALLMENT = 'santander_installment_se';
+    const METHOD_SANTANDER_FI_INSTALLMENT = 'santander_installment_fi';
+    const METHOD_SANTANDER_NL_INSTALLMENT = 'santander_installment_nl';
     const METHOD_INSTANT_PAYMENT = 'instant_payment';
 
     const METHOD_SOFORT = 'sofort';
@@ -43,6 +45,9 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_ZINIA_BNPL = 'zinia_bnpl';
     const METHOD_ZINIA_BNPL_DE = 'zinia_bnpl_de';
     const METHOD_ZINIA_SLICE_THREE = 'zinia_slice_three';
+    const METHOD_IVY = 'ivy';
+    const METHOD_IDEAL = 'ideal';
+    const METHOD_ALLIANZ_TRADE_B2B_BNPL = 'allianz_trade_b2b_bnpl';
 
     /**
      * Whether payment method must be hidden when shipping address differs from billing one
