@@ -14,23 +14,23 @@
 namespace Payever\Sdk\Payments\Http\ResponseEntity;
 
 use Payever\Sdk\Core\Http\ResponseEntity;
-use Payever\Sdk\Payments\Http\MessageEntity\CompanySearchResultEntity;
+use Payever\Sdk\Payments\Http\MessageEntity\InvoicePaymentResultEntity;
+use Payever\Sdk\Payments\Http\MessageEntity\PaymentCallEntity;
 
 /**
- * This class represents CompanySearch ResponseInterface Entity
+ * This class represents Invoice Payment ResponseInterface Entity
+ *
+ * @method PaymentCallEntity getCall()
+ * @method InvoicePaymentResultEntity getResult()
  */
-class CompanySearchResponse extends ResponseEntity
+class InvoicePaymentResponse extends ResponseEntity
 {
     /**
      * {@inheritdoc}
      */
-    public function load($data)
+    public function setCall($call)
     {
-        if (!is_array($data) || !isset($data['result'])) {
-            $data = ['result' => $data];
-        }
-
-        return parent::load($data);
+        $this->call = new PaymentCallEntity($call);
     }
 
     /**
@@ -38,9 +38,6 @@ class CompanySearchResponse extends ResponseEntity
      */
     public function setResult($result)
     {
-        $this->result = [];
-        foreach ($result as $item) {
-            $this->result[] = new CompanySearchResultEntity($item);
-        }
+        $this->result = new InvoicePaymentResultEntity($result);
     }
 }

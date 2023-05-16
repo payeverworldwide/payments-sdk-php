@@ -67,6 +67,22 @@ class ActionDecider implements ActionDeciderInterface
     }
 
     /**
+     * Check if the invoice action for the transaction is allowed
+     *
+     * @param string $paymentId
+     * @param bool $throwException
+     *
+     * @return bool
+     *
+     * @throws \Exception when $throwException is true and target action is not allowed
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    public function isInvoiceAllowed($paymentId, $throwException = true)
+    {
+        return $this->isActionAllowed($paymentId, static::ACTION_INVOICE, $throwException);
+    }
+
+    /**
      * Check if the refund action for the transaction is allowed
      *
      * @param string $paymentId
@@ -162,6 +178,25 @@ class ActionDecider implements ActionDeciderInterface
         );
     }
 
+    /**
+     * Check if the partial invoice action for the transaction is allowed
+     *
+     * @param string $paymentId
+     * @param bool $throwException
+     *
+     * @return bool
+     *
+     * @throws \Exception when $throwException is true and target action is not allowed
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    public function isPartialInvoiceAllowed($paymentId, $throwException = true)
+    {
+        return $this->isPartialActionAllowed(
+            $paymentId,
+            static::ACTION_INVOICE,
+            $throwException
+        );
+    }
 
     /**
      * Check if the partial refund action for the transaction is allowed

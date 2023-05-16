@@ -20,6 +20,7 @@ interface ActionDeciderInterface
 {
     const ACTION_AUTHORIZE = 'authorize';
     const ACTION_CANCEL = 'cancel';
+    const ACTION_INVOICE = 'invoice';
     const ACTION_CHANGE_AMOUNT = 'change_amount';
     const ACTION_COLLECTION = 'collection';
     const ACTION_LATE_PAYMENT = 'late_payment';

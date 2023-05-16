@@ -20,6 +20,7 @@ use Payever\Sdk\Payments\Base\PaymentsApiClientInterface;
 use Payever\Sdk\Payments\Http\RequestEntity\AuthorizePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CancelPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ClaimPaymentRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\InvoicePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
@@ -34,6 +35,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchRequest;
 use Payever\Sdk\Payments\Http\ResponseEntity\AuthorizePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CancelPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ClaimPaymentResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\InvoicePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CollectPaymentsResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CreatePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\GetTransactionResponse;
@@ -71,6 +73,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_SHIPPING_GOODS_PAYMENT = 'api/payment/shipping-goods/%s';
     const SUB_URL_CANCEL_PAYMENT = 'api/payment/cancel/%s';
     const SUB_URL_CLAIM_PAYMENT = 'api/payment/claim/%s';
+    const SUB_URL_INVOICE_PAYMENT = 'api/payment/invoice/%s';
     const SUB_URL_RETRIEVE_API_CALL = 'api/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/oauth/%s/payment-options/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/oauth/%s/payment-options/variants/%s';
@@ -473,6 +476,30 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
+    public function invoicePaymentRequest($paymentId, $amount = null)
+    {
+        $this->configuration->assertLoaded();
+
+        $request = RequestBuilder::post($this->getInvoicePaymentURL($paymentId))
+            ->setParams([
+                'amount' => $amount,
+            ])
+            ->addRawHeader(
+                $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
+            )
+            ->contentTypeIsJson()
+            ->setRequestEntity(new InvoicePaymentRequest())
+            ->setResponseEntity(new InvoicePaymentResponse())
+            ->build();
+
+        return $this->executeRequest($request);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
     public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest = null)
     {
         $this->configuration->assertLoaded();
@@ -743,6 +770,18 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     protected function getClaimPaymentURL($paymentId)
     {
         return $this->getBaseUrl() . sprintf(self::SUB_URL_CLAIM_PAYMENT, $paymentId);
+    }
+
+    /**
+     * Returns URL for Invoice Payment path
+     *
+     * @param string $paymentId
+     *
+     * @return string
+     */
+    protected function getInvoicePaymentURL($paymentId)
+    {
+        return $this->getBaseUrl() . sprintf(self::SUB_URL_INVOICE_PAYMENT, $paymentId);
     }
 
     /**
