@@ -69,6 +69,11 @@ class CompanySearchResultEntity extends ResultEntity
     protected $companyIdentifiers;
 
     /**
+     * @var string
+     */
+    protected $vatId;
+
+    /**
      * Set Address.
      *
      * @param array $address
