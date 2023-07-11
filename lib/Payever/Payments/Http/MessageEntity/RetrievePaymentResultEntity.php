@@ -13,6 +13,7 @@
 
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
+use Payever\Sdk\Core\Helper\StringHelper;
 use Payever\Sdk\Core\Http\MessageEntity\ChannelSetEntity;
 use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
 
@@ -36,10 +37,13 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method float                getPaymentFee()
  * @method float                getTotal()
  * @method AddressEntity        getAddress()
+ * @method AddressEntity        getShippingAddress()
  * @method PaymentDetailsEntity getPaymentDetails()
  * @method array                getPaymentDetailsArray()
  * @method ChannelSetEntity     getChannelSet()
  * @method float                getDownPayment()
+ * @method ShippingOptionEntity getShippingOption()
+ * @method CartItemEntity[]     getItems()
  * @method self                 setId(string $id)
  * @method self                 setStatus(string $status)
  * @method self                 setColorState(string $colorState)
@@ -119,6 +123,9 @@ class RetrievePaymentResultEntity extends ResultEntity
     /** @var AddressEntity $address */
     protected $address;
 
+    /** @var AddressEntity $shippingAddress */
+    protected $shippingAddress;
+
     /** @var PaymentDetailsEntity $paymentDetails */
     protected $paymentDetails;
 
@@ -127,6 +134,12 @@ class RetrievePaymentResultEntity extends ResultEntity
 
     /** @var ChannelSetEntity */
     protected $channelSet;
+
+    /** @var ShippingOptionEntity $shippingOption */
+    protected $shippingOption;
+
+    /** @var CartItemEntity[] */
+    protected $items;
 
     /**
      * Sets Created At
@@ -172,6 +185,19 @@ class RetrievePaymentResultEntity extends ResultEntity
     }
 
     /**
+     * Sets Shipping Address
+     *
+     * @param array $shippingAddress
+     * @return self
+     */
+    public function setShippingAddress($shippingAddress)
+    {
+        $this->shippingAddress = new AddressEntity($shippingAddress);
+
+        return $this;
+    }
+
+    /**
      * Sets Channel Set
      *
      * @param array $channelSet
@@ -180,6 +206,41 @@ class RetrievePaymentResultEntity extends ResultEntity
     public function setChannelSet($channelSet)
     {
         $this->channelSet = new ChannelSetEntity($channelSet);
+
+        return $this;
+    }
+
+    /**
+     * Sets Shipping Option
+     *
+     * @param array $shippingOption
+     * @return self
+     */
+    public function setShippingOption($shippingOption)
+    {
+        $this->shippingOption = new ShippingOptionEntity($shippingOption);
+
+        return $this;
+    }
+
+    /**
+     * Sets Items
+     *
+     * @param array|string $items
+     * @return self
+     * @throws \Exception
+     */
+    public function setItems($items)
+    {
+        if (is_string($items)) {
+            $items = StringHelper::jsonDecode($items);
+        }
+
+        if ($items && is_array($items)) {
+            foreach ($items as $item) {
+                $this->items[] = new CartItemEntity($item);
+            }
+        }
 
         return $this;
     }
