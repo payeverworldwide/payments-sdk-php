@@ -52,7 +52,7 @@ class ThirdPartyPluginsApiClient extends PaymentsApiClient
                  )
                  ->build();
 
-            $this->executeRequest($request);
+            $this->getHttpClient()->execute($request);
 
             return true;
         } catch (\Exception $exception) {
