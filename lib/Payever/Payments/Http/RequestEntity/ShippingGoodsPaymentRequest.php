@@ -21,7 +21,6 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method float                 getAmount()
  * @method self                  setAmount(float $amount)
  * @method float                 getDeliveryFee()
- * @method self                  setDeliveryFee(float $deliveryFee)
  * @method string                getReason()
  * @method self                  setReason(string $reason)
  * @method array                 getPaymentItems()
@@ -32,6 +31,8 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method self                  setInvoiceUrl(string $invoiceUrl)
  * @method string                getPoNumber()
  * @method self                  setPoNumber(string $poNumber)
+ * @method string                getReference()
+ * @method self                  setReference(string $reference)
  */
 class ShippingGoodsPaymentRequest extends RequestEntity
 {
@@ -58,6 +59,9 @@ class ShippingGoodsPaymentRequest extends RequestEntity
 
     /** @var string $poNumber */
     protected $poNumber;
+
+    /** @var string $reference */
+    protected $reference;
 
     /**
      * Sets Payment Items
@@ -129,5 +133,16 @@ class ShippingGoodsPaymentRequest extends RequestEntity
         }
 
         return parent::isValid() && (!$this->paymentItems || is_array($this->paymentItems));
+    }
+
+    /**
+     * @param mixed $deliveryFee
+     * @return $this
+     */
+    public function setDeliveryFee($deliveryFee)
+    {
+        $this->deliveryFee = (float)$deliveryFee;
+
+        return $this;
     }
 }

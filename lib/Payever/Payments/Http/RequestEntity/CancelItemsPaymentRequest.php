@@ -19,9 +19,10 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * This class represents Refund Payment items RequestInterface Entity
  *
  * @method float getDeliveryFee()
- * @method self  setDeliveryFee(float $deliveryFee)
  * @method float getPaymentItems()
  * @method self  setPaymentItems(array $paymentItems)
+ * @method string|null getReference()
+ * @method self  setReference(string $reference)
  */
 class CancelItemsPaymentRequest extends RequestEntity
 {
@@ -30,6 +31,20 @@ class CancelItemsPaymentRequest extends RequestEntity
 
     /** @var PaymentItemEntity[] $paymentItems */
     protected $paymentItems;
+
+    /** @var string $reference */
+    protected $reference;
+
+    /**
+     * @param mixed $deliveryFee
+     * @return $this
+     */
+    public function setDeliveryFee($deliveryFee)
+    {
+        $this->deliveryFee = (float)$deliveryFee;
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

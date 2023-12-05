@@ -20,9 +20,14 @@ use Payever\Sdk\Core\Http\RequestEntity;
  *
  * @method float getAmount()
  * @method self  setAmount(float $amount)
+ * @method string|null getReference()
+ * @method self  setReference(string $reference)
  */
 class CancelPaymentRequest extends RequestEntity
 {
+    /** @var string $reference */
+    protected $reference;
+
     /** @var float $amount */
     protected $amount;
 

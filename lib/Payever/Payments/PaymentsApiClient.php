@@ -268,18 +268,20 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function refundPaymentRequest($paymentId, $amount)
+    public function refundPaymentRequest($paymentId, $amount, $reference = null)
     {
         $this->configuration->assertLoaded();
+        $refundPaymentRequest = new RefundPaymentRequest(['amount' => $amount]);
 
+        if (null !== $reference) {
+            $refundPaymentRequest->setReference($reference);
+        }
         $request = RequestBuilder::post($this->getRefundPaymentURL($paymentId))
-            ->setParams([
-                'amount' => $amount,
-            ])
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
-            ->setRequestEntity(new RefundPaymentRequest())
+            ->contentTypeIsJson()
+            ->setRequestEntity($refundPaymentRequest)
             ->setResponseEntity(new RefundPaymentResponse())
             ->build();
 
@@ -291,7 +293,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function refundItemsPaymentRequest($paymentId, $items, $deliveryFee = null)
+    public function refundItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $reference = null)
     {
         $this->configuration->assertLoaded();
 
@@ -300,6 +302,9 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
 
         if ($deliveryFee) {
             $refundPaymentRequest->setDeliveryFee($deliveryFee);
+        }
+        if ($reference) {
+            $refundPaymentRequest->setReference($reference);
         }
 
         $request = RequestBuilder::post($this->getRefundPaymentURL($paymentId))
@@ -404,10 +409,14 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      */
     public function shippingGoodsPaymentRequest(
         $paymentId,
-        ShippingGoodsPaymentRequest $paymentRequest = null
+        ShippingGoodsPaymentRequest $paymentRequest = null,
+        $reference = null
     ) {
         $this->configuration->assertLoaded();
 
+        if (null !== $reference) {
+            $paymentRequest->setReference($reference);
+        }
         $request = RequestBuilder::post($this->getShippingGoodsPaymentURL($paymentId))
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
@@ -425,18 +434,20 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function cancelPaymentRequest($paymentId, $amount = null)
+    public function cancelPaymentRequest($paymentId, $amount = null, $reference = null)
     {
         $this->configuration->assertLoaded();
+        $cancelRequest = new CancelPaymentRequest(['amount' => $amount]);
 
+        if (null !== $reference) {
+            $cancelRequest->setReference($reference);
+        }
         $request = RequestBuilder::post($this->getCancelPaymentURL($paymentId))
-            ->setParams([
-                'amount' => $amount,
-            ])
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
-            ->setRequestEntity(new CancelPaymentRequest())
+            ->contentTypeIsJson()
+            ->setRequestEntity($cancelRequest)
             ->setResponseEntity(new CancelPaymentResponse())
             ->build();
 
@@ -448,7 +459,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null)
+    public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $reference = null)
     {
         $this->configuration->assertLoaded();
 
@@ -457,6 +468,10 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
 
         if ($deliveryFee) {
             $cancelPaymentRequest->setDeliveryFee($deliveryFee);
+        }
+
+        if (null !== $reference) {
+            $cancelPaymentRequest->setReference($reference);
         }
 
         $request = RequestBuilder::post($this->getCancelPaymentURL($paymentId))
@@ -476,14 +491,17 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function invoicePaymentRequest($paymentId, $amount = null)
+    public function invoicePaymentRequest($paymentId, $amount = null, $reference = null)
     {
         $this->configuration->assertLoaded();
 
+        $params = ['amount' => $amount];
+
+        if (null !== $reference) {
+            $params['reference'] = $reference;
+        }
         $request = RequestBuilder::post($this->getInvoicePaymentURL($paymentId))
-            ->setParams([
-                'amount' => $amount,
-            ])
+            ->setParams($params)
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )

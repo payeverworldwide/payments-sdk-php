@@ -16,6 +16,7 @@ namespace Payever\Sdk\Payments\Http\RequestEntity;
 
 use Payever\Sdk\Core\Http\RequestEntity;
 use Payever\Sdk\Payments\Notification\MessageEntity\NotificationResultEntity;
+use Payever\Sdk\Payments\Notification\MessageEntity\NotificationActionResultEntity;
 
 /**
  * @method string getNotificationType()
@@ -24,6 +25,7 @@ use Payever\Sdk\Payments\Notification\MessageEntity\NotificationResultEntity;
  * @method setNotificationTypesAvailable(array $notificationTypes)
  * @method \DateTime|false getCreatedAt()
  * @method NotificationResultEntity getPayment()
+ * @method null|NotificationActionResultEntity getAction()
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
@@ -40,6 +42,9 @@ class NotificationRequestEntity extends RequestEntity
 
     /** @var NotificationResultEntity */
     protected $payment;
+
+    /** @var null|NotificationActionResultEntity */
+    protected $action;
 
     /**
      * @param string $createdAt
@@ -74,6 +79,10 @@ class NotificationRequestEntity extends RequestEntity
     public function setData(array $data)
     {
         $this->payment = new NotificationResultEntity($data['payment']);
+
+        if (array_key_exists('action', $data)) {
+            $this->action = new NotificationActionResultEntity($data['action']);
+        }
 
         return $this;
     }
