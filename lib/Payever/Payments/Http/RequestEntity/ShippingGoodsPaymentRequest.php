@@ -31,8 +31,6 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method self                  setInvoiceUrl(string $invoiceUrl)
  * @method string                getPoNumber()
  * @method self                  setPoNumber(string $poNumber)
- * @method string                getReference()
- * @method self                  setReference(string $reference)
  */
 class ShippingGoodsPaymentRequest extends RequestEntity
 {
@@ -59,9 +57,6 @@ class ShippingGoodsPaymentRequest extends RequestEntity
 
     /** @var string $poNumber */
     protected $poNumber;
-
-    /** @var string $reference */
-    protected $reference;
 
     /**
      * Sets Payment Items

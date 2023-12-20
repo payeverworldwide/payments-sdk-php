@@ -21,8 +21,6 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method float getDeliveryFee()
  * @method float getPaymentItems()
  * @method self  setPaymentItems(array $paymentItems)
- * @method string|null getReference()
- * @method self  setReference(string $reference)
  */
 class CancelItemsPaymentRequest extends RequestEntity
 {
@@ -31,9 +29,6 @@ class CancelItemsPaymentRequest extends RequestEntity
 
     /** @var PaymentItemEntity[] $paymentItems */
     protected $paymentItems;
-
-    /** @var string $reference */
-    protected $reference;
 
     /**
      * @param mixed $deliveryFee

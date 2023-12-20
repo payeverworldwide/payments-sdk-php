@@ -125,11 +125,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      *
      * @param string $paymentId Payment ID
      * @param float $amount Specify the refund amount. If no amount is set, the whole amount will be refunded.
-     * @param string $reference Action Reference
+     * @param string $uniqueIdentifier Action Identifier
      *
      * @return ResponseInterface
      */
-    public function refundPaymentRequest($paymentId, $amount, $reference = null);
+    public function refundPaymentRequest($paymentId, $amount, $uniqueIdentifier = null);
 
     /**
      * Sends a request to refund payment
@@ -139,11 +139,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @param string $paymentId Payment ID
      * @param PaymentItemEntity[] $items Specify the refund items.
      * @param null|float $deliveryFee Shipping total.
-     * @param string $reference Action Reference
+     * @param string $uniqueIdentifier Action Identifier
      *
      * @return ResponseInterface
      */
-    public function refundItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $reference = null);
+    public function refundItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $uniqueIdentifier = null);
 
     /**
      * Sends a request to authorize previously made payment
@@ -209,11 +209,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      *
      * @param string $paymentId Payment ID
      * @param float $amount Specify the partial cancel amount. If no amount is set, the whole amount will be cancelled.
-     * @param string $reference Action Reference
+     * @param string $uniqueIdentifier Action Identifier
      *
      * @return ResponseInterface
      */
-    public function cancelPaymentRequest($paymentId, $amount, $reference = null);
+    public function cancelPaymentRequest($paymentId, $amount, $uniqueIdentifier = null);
 
     /**
      * Sends a request to refund payment
@@ -223,11 +223,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @param string $paymentId Payment ID
      * @param PaymentItemEntity[] $items Specify the refund items.
      * @param null|float $deliveryFee Shipping total.
-     * @param string $reference Action Reference
+     * @param string $uniqueIdentifier Action Identifier
      *
      * @return ResponseInterface
      */
-    public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $reference = null);
+    public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $uniqueIdentifier = null);
 
     /**
      * Sends a request to claim payment

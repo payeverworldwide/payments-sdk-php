@@ -20,10 +20,12 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method null|string getReference()
  * @method null|string getSource()
  * @method null|string getType()
+ * @method null|string getUniqueIdentifier()
  * @method self        setAmount(float $amount)
  * @method self        setReference(string $reference)
  * @method self        setSource(string $source)
  * @method self        setType(string $type)
+ * @method self        setUniqueIdentifier(string $uniqueIdentifier)
  */
 class NotificationActionResultEntity extends ResultEntity
 {
@@ -38,4 +40,7 @@ class NotificationActionResultEntity extends ResultEntity
 
     /** @var null|string $type */
     protected $type;
+
+    /** @var null|string $uniqueIdentifier */
+    protected $uniqueIdentifier;
 }
