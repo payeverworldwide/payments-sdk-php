@@ -32,6 +32,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string getIdentifier()
  * @method AttributesEntity getAttributes()
  * @method string getBrand()
+ * @method CartItemExtraDataEntity  getExtraData()
  * @method self   setName(string $name)
  * @method self   setUnitPrice(float $price)
  * @method self   setTaxRate(float $taxRate)
@@ -119,6 +120,9 @@ class CartItemV3Entity extends MessageEntity
      */
     protected $brand;
 
+    /** @var CartItemExtraDataEntity $extraData */
+    protected $extraData;
+
     /**
      * Sets Attributes
      *
@@ -141,6 +145,30 @@ class CartItemV3Entity extends MessageEntity
         }
 
         $this->attributes = new AttributesEntity($attributes);
+
+        return $this;
+    }
+
+    /**
+     * @param CartItemExtraDataEntity|string $extraData
+     *
+     * @return $this
+     */
+    public function setExtraData($extraData)
+    {
+        if (!$extraData) {
+            return $this;
+        }
+
+        if (is_string($extraData)) {
+            $extraData = json_decode($extraData);
+        }
+
+        if (!is_array($extraData) && !is_object($extraData)) {
+            return $this;
+        }
+
+        $this->extraData = new CartItemExtraDataEntity($extraData);
 
         return $this;
     }

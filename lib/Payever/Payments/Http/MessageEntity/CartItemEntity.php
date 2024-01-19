@@ -27,6 +27,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string getThumbnail()
  * @method string getSku()
  * @method string getIdentifier()
+ * @method CartItemExtraDataEntity getExtraData()
  * @method self   setName(string $name)
  * @method self   setPrice(float $price)
  * @method self   setPriceNetto(float $priceNetto)
@@ -65,6 +66,33 @@ class CartItemEntity extends MessageEntity
 
     /** @var string $identifier */
     protected $identifier;
+
+    /** @var CartItemExtraDataEntity $extraData */
+    protected $extraData;
+
+    /**
+     * @param CartItemExtraDataEntity|string $extraData
+     *
+     * @return $this
+     */
+    public function setExtraData($extraData)
+    {
+        if (!$extraData) {
+            return $this;
+        }
+
+        if (is_string($extraData)) {
+            $extraData = json_decode($extraData);
+        }
+
+        if (!is_array($extraData) && !is_object($extraData)) {
+            return $this;
+        }
+
+        $this->extraData = new CartItemExtraDataEntity($extraData);
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

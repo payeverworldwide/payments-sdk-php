@@ -54,6 +54,14 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method bool          getPaymentFeeAcceptedByMerchant()
  * @method bool          getPrefilled()
  * @method \stdClass[]   getActions()
+ * @method float         getAmountCanceled()
+ * @method float         getAmountCancelRest()
+ * @method float         getAmountCaptured()
+ * @method float         getAmountCaptureRest()
+ * @method float         getAmountInvoiced()
+ * @method float         getAmountInvoiceRest()
+ * @method float         getAmountRefunded()
+ * @method float         getAmountRefundRest()
  * @method self          setMerchantReference(string $merchantReference)
  * @method self          setId(string $id)
  * @method self          setStatus(string $status)
@@ -84,6 +92,14 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self          setPaymentFee(float $paymentFee)
  * @method self          setDownPayment(float $downPayment)
  * @method self          setActions(array $actions)
+ * @method self          setAmountCanceled(float $amountCanceled)
+ * @method self          setAmountCancelRest(float $amountCancelRest)
+ * @method self          setAmountCaptured(float $amountCaptured)
+ * @method self          setAmountCaptureRest(float $amountCaptureRest)
+ * @method self          setAmountInvoiced(float $amountInvoiced)
+ * @method self          setAmountInvoiceRest(float $amountInvoiceRest)
+ * @method self          setAmountRefunded(float $amountRefunded)
+ * @method self          setAmountRefundRest(float $amountRefundRest)
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  * @SuppressWarnings(PHPMD.ShortVariable)
@@ -198,6 +214,30 @@ class GetTransactionResultEntity extends ResultEntity
 
     /** @var \stdClass[]|array $actions */
     protected $actions;
+
+	/** @var float $amountCanceled */
+	protected $amountCanceled;
+
+	/** @var float $amountCancelRest */
+	protected $amountCancelRest;
+
+	/** @var float $amountCaptured */
+	protected $amountCaptured;
+
+	/** @var float $amountCaptureRest */
+	protected $amountCaptureRest;
+
+	/** @var float $amountInvoiced */
+	protected $amountInvoiced;
+
+	/** @var float $amountInvoiceRest */
+	protected $amountInvoiceRest;
+
+	/** @var float $amountRefunded */
+	protected $amountRefunded;
+
+	/** @var float $amountRefundRest */
+	protected $amountRefundRest;
 
     /**
      * Sets Created At

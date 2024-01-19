@@ -301,6 +301,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
         if ($deliveryFee) {
             $refundPaymentRequest->setDeliveryFee($deliveryFee);
         }
+
         $request = RequestBuilder::post($this->getRefundPaymentURL($paymentId))
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
