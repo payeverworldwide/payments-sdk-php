@@ -46,8 +46,16 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_ZINIA_BNPL_DE = 'zinia_bnpl_de';
     const METHOD_ZINIA_SLICE_THREE = 'zinia_slice_three';
     const METHOD_IVY = 'ivy';
+    const METHOD_APPLE_PAY = 'apple_pay';
+    const METHOD_GOOGLE_PAY = 'google_pay';
     const METHOD_IDEAL = 'ideal';
     const METHOD_ALLIANZ_TRADE_B2B_BNPL = 'allianz_trade_b2b_bnpl';
+
+    const MOBILE_REGEXP = '/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i';
+    const IOS_REGEXP =  '/(((iPhone([\d\W]+)|iPhone|iPad)(;|\s\d+;|\s\w+;|\s\d+\w+;)?(\s+)?(U;)?)(\s+)?(CPU|iOS)([^\);]+)?)/i';
+    const SAFARI_REGEXP = '/safari/i';
+    const ANDROID_REGEXP = '/android/i';
+    const CHROME_REGEXP = '/chrome/i';
 
     /**
      * Whether payment method must be hidden when shipping address differs from billing one
@@ -74,6 +82,89 @@ class PaymentMethod extends EnumerableConstants
     }
 
     /**
+     * Checks if payment method should be hidden for current device
+     *
+     * @param string $method
+     * @param null/srting $userAgent
+     *
+     * @return bool
+     */
+    public static function shouldHideOnCurrentDevice($method, $userAgent = null)
+    {
+        if (!in_array($method, static::getShouldHideOnCurrentDeviceMethods())) {
+            return false;
+        }
+
+        if (!$userAgent) {
+            $userAgent = isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : '';
+        }
+
+        if ($method === static::METHOD_APPLE_PAY) {
+            return static::isApplePayHidden($userAgent);
+        }
+
+        if ($method === static::METHOD_GOOGLE_PAY) {
+            return static::isGooglePayHidden($userAgent);
+        }
+
+        return false;
+    }
+
+    /**
+     * Apple Pay should be hidden for desktop and visible only for ios mobile (safari)
+     *
+     * @param string $userAgent
+     *
+     * @return bool
+     */
+    public static function isApplePayHidden($userAgent)
+    {
+        // desktop
+        if (!static::isMobile($userAgent)) {
+            return true;
+        }
+
+        // mobile
+        if (!static::isIOS($userAgent)) {
+            return true;
+        }
+
+        if (!static::isSafariBrowser($userAgent)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Google Pay should be visible only for android mobile (chrome) and desktop chrome.
+     *
+     * @param string $userAgent
+     *
+     * @return bool
+     */
+    public static function isGooglePayHidden($userAgent)
+    {
+        // desktop
+        if (!static::isMobile($userAgent) && static::isChromeBrowser($userAgent)) {
+            return false;
+        }
+
+        // mobile
+        if (!static::isAndroidOS($userAgent)) {
+            return true;
+        }
+
+        if (!static::isChromeBrowser($userAgent)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the payment methods what should be hidden if billing and shipping addresses are different
+     *
      * @return array
      */
     public static function getShouldHideOnDifferentAddressMethods()
@@ -91,6 +182,8 @@ class PaymentMethod extends EnumerableConstants
     }
 
     /**
+     * Returns payment methods what should be hidden after rejected payment
+     *
      * @return array
      */
     public static function getShouldHideOnRejectMethods()
@@ -99,5 +192,73 @@ class PaymentMethod extends EnumerableConstants
             static::METHOD_SANTANDER_DE_FACTORING,
             static::METHOD_SANTANDER_DE_INVOICE,
         ];
+    }
+
+    /**
+     * Returns payment methods which should be checked whether it is necessary to hide them for current device
+     *
+     * @return array
+     */
+    private static function getShouldHideOnCurrentDeviceMethods()
+    {
+        return [
+            static::METHOD_APPLE_PAY,
+            static::METHOD_GOOGLE_PAY,
+        ];
+    }
+
+    /**
+     * Checks if mobile device is used by user agent
+     *
+     * @param $userAgent
+     * @return bool
+     */
+    private static function isMobile($userAgent)
+    {
+        return preg_match(static::MOBILE_REGEXP , $userAgent);
+    }
+
+    /**
+     * Checks if iOS is used by user agent
+     *
+     * @param $userAgent
+     * @return bool
+     */
+    private static function isIOS($userAgent)
+    {
+        return preg_match(static::IOS_REGEXP , $userAgent);
+    }
+
+    /**
+     * Checks if Android OS is used by user agent
+     *
+     * @param $userAgent
+     * @return bool
+     */
+    private static function isAndroidOS($userAgent)
+    {
+        return preg_match(static::ANDROID_REGEXP , $userAgent);
+    }
+
+    /**
+     * Checks if Safari Browser is used by user agent
+     *
+     * @param $userAgent
+     * @return bool
+     */
+    private static function isSafariBrowser($userAgent)
+    {
+        return preg_match(static::SAFARI_REGEXP , $userAgent);
+    }
+
+    /**
+     * Checks if Chrome Browser is used by user agent
+     *
+     * @param $userAgent
+     * @return bool
+     */
+    private static function isChromeBrowser($userAgent)
+    {
+        return preg_match(static::CHROME_REGEXP , $userAgent);
     }
 }
