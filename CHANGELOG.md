@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.3]
+### Removed
+- Google Pay for desktop
+ 
 ## [1.5.2]
 ### Added
 - Implemented Google Pay, Apple Pay filters

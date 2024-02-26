@@ -125,11 +125,7 @@ class PaymentMethod extends EnumerableConstants
         }
 
         // mobile
-        if (!static::isIOS($userAgent)) {
-            return true;
-        }
-
-        if (!static::isSafariBrowser($userAgent)) {
+        if (!static::isIOS($userAgent) || !static::isSafariBrowser($userAgent)) {
             return true;
         }
 
@@ -146,16 +142,12 @@ class PaymentMethod extends EnumerableConstants
     public static function isGooglePayHidden($userAgent)
     {
         // desktop
-        if (!static::isMobile($userAgent) && static::isChromeBrowser($userAgent)) {
-            return false;
-        }
-
-        // mobile
-        if (!static::isAndroidOS($userAgent)) {
+        if (!static::isMobile($userAgent)) {
             return true;
         }
 
-        if (!static::isChromeBrowser($userAgent)) {
+        // mobile
+        if (!static::isAndroidOS($userAgent) || !static::isChromeBrowser($userAgent)) {
             return true;
         }
 
