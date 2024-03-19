@@ -26,6 +26,8 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self setFirstName(string $value)
  * @method self setLastName(string $value)
  * @method self setEmail(string $value)
+ *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class SellerEntity extends MessageEntity
 {

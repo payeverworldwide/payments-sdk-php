@@ -19,7 +19,6 @@ use Payever\Sdk\Payments\Http\MessageEntity\CartItemEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\ChannelEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\PaymentDataEntity;
 
-
 /**
  * This class represents Create Payment RequestInterface Entity
  *

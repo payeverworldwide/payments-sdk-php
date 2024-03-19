@@ -1,6 +1,6 @@
 <?php
 
-namespace Payever\Tests\Bootstrap\Plugin;
+namespace Payever\Tests\Bootstrap\Plugins;
 
 use Payever\Sdk\Core\ClientConfiguration;
 use Payever\Sdk\Core\Enum\ChannelSet;

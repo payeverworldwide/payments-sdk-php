@@ -3,7 +3,7 @@
 namespace Payever\Tests\Unit\Payever\Payments\Enum;
 
 use Payever\Sdk\Payments\Enum\Status;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class StatusTest
@@ -23,5 +23,17 @@ class StatusTest extends TestCase
             $this->collectConstants('Payever\Sdk\Payments\Enum\Status'),
             Status::enum()
         );
+    }
+
+    /**
+     * @return array
+     *
+     * @throws \ReflectionException
+     */
+    private function collectConstants($className)
+    {
+        $reflection = new \ReflectionClass($className);
+
+        return $reflection->getConstants();
     }
 }

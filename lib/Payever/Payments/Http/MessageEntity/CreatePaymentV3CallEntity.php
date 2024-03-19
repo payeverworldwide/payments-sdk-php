@@ -60,6 +60,7 @@ use Payever\Sdk\Core\Http\MessageEntity\CallEntity;
  * @method self             setCustomerRedirectUrl(string $url)
  * @method self             setPaymentType(string $paymentType)
  *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  * @SuppressWarnings(PHPMD.StaticAccess)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */

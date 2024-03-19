@@ -3,7 +3,7 @@
 namespace Payever\Tests\Unit\Payever\Payments\Notification;
 
 use Payever\Sdk\Payments\Notification\NotificationResult;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class NotificationResultTest extends TestCase
 {

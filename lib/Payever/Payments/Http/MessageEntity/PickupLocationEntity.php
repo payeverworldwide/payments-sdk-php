@@ -15,6 +15,9 @@ namespace Payever\Sdk\Payments\Http\MessageEntity;
 
 use Payever\Sdk\Core\Base\MessageEntity;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class PickupLocationEntity extends MessageEntity
 {
     /**

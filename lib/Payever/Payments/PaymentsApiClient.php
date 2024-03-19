@@ -55,6 +55,7 @@ use Payever\Sdk\Payments\Http\ResponseEntity\CompanySearchResponse;
  * Class represents Payever Payments API Connector
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInterface
 {

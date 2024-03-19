@@ -3,7 +3,7 @@
 namespace Payever\Tests\Unit\Payever\Payments\Enum;
 
 use Payever\Sdk\Payments\Enum\PaymentMethod;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PaymentMethodTest extends TestCase
 {

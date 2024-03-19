@@ -28,6 +28,8 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method self                      setConnectionId(string $connectionId)
  * @method self                      setEnabled(boolean $enabled)
  * @method boolean                   setIsBNPL(boolean $isBNPL)
+ *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class PaymentWidgetPaymentsEntity extends RequestEntity
 {

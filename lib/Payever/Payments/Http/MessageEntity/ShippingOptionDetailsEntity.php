@@ -14,6 +14,7 @@
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
 use Payever\Sdk\Core\Base\MessageEntity;
+
 /**
  * This class represents ShippingOptionDetails entity
  *

@@ -62,6 +62,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                 setTotal(float $total)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class RetrievePaymentResultEntity extends ResultEntity

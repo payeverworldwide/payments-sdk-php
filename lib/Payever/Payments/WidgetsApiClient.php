@@ -40,6 +40,7 @@ class WidgetsApiClient extends PaymentsApiClient
      *
      * @return \Payever\Sdk\Core\Http\Response
      * @throws \Exception
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function getWidgets($businessUuid = '', $integration = '')
     {

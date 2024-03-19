@@ -30,6 +30,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\CompanyIdentifierEntity;
  * @method self                      setName(string $value)
  * @method self                      setPhoneNumber(string $value)
  * @method self                      setLegalFormCode(string $value)
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class CompanySearchResultEntity extends ResultEntity
 {

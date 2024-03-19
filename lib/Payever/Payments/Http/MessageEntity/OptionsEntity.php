@@ -46,6 +46,8 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self setPhoneMandatory(bool $value)
  * @method self setBirthdateMandatory(bool $value)
  * @method self setTestMode(bool $value)
+ *
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 class OptionsEntity extends MessageEntity
 {

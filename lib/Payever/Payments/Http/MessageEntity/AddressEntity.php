@@ -52,6 +52,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self   setType(string $type)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class AddressEntity extends MessageEntity
 {

@@ -215,29 +215,29 @@ class GetTransactionResultEntity extends ResultEntity
     /** @var \stdClass[]|array $actions */
     protected $actions;
 
-	/** @var float $amountCanceled */
-	protected $amountCanceled;
+    /** @var float $amountCanceled */
+    protected $amountCanceled;
 
-	/** @var float $amountCancelRest */
-	protected $amountCancelRest;
+    /** @var float $amountCancelRest */
+    protected $amountCancelRest;
 
-	/** @var float $amountCaptured */
-	protected $amountCaptured;
+    /** @var float $amountCaptured */
+    protected $amountCaptured;
 
-	/** @var float $amountCaptureRest */
-	protected $amountCaptureRest;
+    /** @var float $amountCaptureRest */
+    protected $amountCaptureRest;
 
-	/** @var float $amountInvoiced */
-	protected $amountInvoiced;
+    /** @var float $amountInvoiced */
+    protected $amountInvoiced;
 
-	/** @var float $amountInvoiceRest */
-	protected $amountInvoiceRest;
+    /** @var float $amountInvoiceRest */
+    protected $amountInvoiceRest;
 
-	/** @var float $amountRefunded */
-	protected $amountRefunded;
+    /** @var float $amountRefunded */
+    protected $amountRefunded;
 
-	/** @var float $amountRefundRest */
-	protected $amountRefundRest;
+    /** @var float $amountRefundRest */
+    protected $amountRefundRest;
 
     /**
      * Sets Created At

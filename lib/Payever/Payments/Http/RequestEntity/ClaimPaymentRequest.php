@@ -20,6 +20,8 @@ use Payever\Sdk\Core\Http\RequestEntity;
  *
  * @method ClaimContextInfoEntity     getClaimContextInfo()
  * @method ClaimDocumentsInfoEntity[] getClaimDocumentsInfo()
+ *
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 class ClaimPaymentRequest extends RequestEntity
 {

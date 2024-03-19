@@ -170,5 +170,4 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     {
         return (bool) $this->isSubmitMethod;
     }
-
 }

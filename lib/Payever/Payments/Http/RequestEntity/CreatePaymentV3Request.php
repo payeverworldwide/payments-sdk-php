@@ -15,6 +15,7 @@ namespace Payever\Sdk\Payments\Http\RequestEntity;
 
 use Payever\Sdk\Core\Http\RequestEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\AttributesEntity;
+use Payever\Sdk\Payments\Http\MessageEntity\CartItemEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\CustomerAddressV3Entity;
 use Payever\Sdk\Payments\Http\MessageEntity\CompanyEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\CustomerEntity;
@@ -67,6 +68,8 @@ use Payever\Sdk\Payments\Http\MessageEntity\VerifyEntity;
  * @method self                    setPluginVersion(string $version)
  * @method self                    setClientIp(string $ip)
  *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class CreatePaymentV3Request extends RequestEntity

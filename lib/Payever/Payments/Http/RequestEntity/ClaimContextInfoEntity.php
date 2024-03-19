@@ -22,6 +22,8 @@ use Payever\Sdk\Core\Http\RequestEntity;
  * @method self setIsInsolvencyProceeding(bool $isInsolvencyProceeding)
  * @method bool getIsInvoiceDisputed()
  * @method self setIsInvoiceDisputed(bool $isInvoiceDisputed)
+ *
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 class ClaimContextInfoEntity extends RequestEntity
 {

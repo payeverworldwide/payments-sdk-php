@@ -8,7 +8,7 @@ use Payever\Sdk\Payments\Action\ActionDeciderInterface;
 use Payever\Sdk\Payments\Base\PaymentsApiClientInterface;
 use Payever\Sdk\Payments\Http\MessageEntity\GetTransactionResultEntity;
 use Payever\Sdk\Payments\Http\ResponseEntity\GetTransactionResponse;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class ActionDeciderTest extends TestCase

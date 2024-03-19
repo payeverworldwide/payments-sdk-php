@@ -32,6 +32,8 @@ use Payever\Sdk\Payments\Http\MessageEntity\PaymentWidgetPaymentsEntity;
  * @method self                          setCheckoutMode(string $checkoutMode)
  * @method self                          setType(string $type)
  * @method self                          setIsVisible(boolean $isVisible)
+ *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class PaymentWidgetsResultEntity extends ResultEntity
 {

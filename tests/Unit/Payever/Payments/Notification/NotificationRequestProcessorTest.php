@@ -3,10 +3,10 @@
 namespace Payever\Tests\Unit\Payever\Payments\Notification;
 
 use Payever\Sdk\Core\Lock\LockInterface;
-use Payever\Sdk\Core\Logger\NullLogger;
 use Payever\Sdk\Payments\Notification\NotificationHandlerInterface;
 use Payever\Sdk\Payments\Notification\NotificationRequestProcessor;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class NotificationRequestProcessorTest extends TestCase

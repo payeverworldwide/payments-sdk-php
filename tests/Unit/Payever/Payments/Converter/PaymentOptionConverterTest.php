@@ -4,7 +4,7 @@ namespace Payever\Tests\Unit\Payever\Payments\Converter;
 
 use Payever\Sdk\Payments\Converter\PaymentOptionConverter;
 use Payever\Sdk\Payments\Http\MessageEntity\ListPaymentOptionsVariantsResultEntity;
-use Payever\Tests\Bootstrap\TestCase;
+use PHPUnit\Framework\TestCase;
 use Payever\Tests\Unit\Payever\Payments\Http\MessageEntity\ListPaymentOptionsVariantsResultEntityTest;
 
 class PaymentOptionConverterTest extends TestCase

@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.0]
+### Changed
+- Removed `psr/log` dependency
+
 ## [1.5.3]
 ### Removed
 - Google Pay for desktop

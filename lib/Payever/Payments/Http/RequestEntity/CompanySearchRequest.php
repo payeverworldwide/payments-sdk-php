@@ -85,7 +85,7 @@ class CompanySearchRequest extends RequestEntity
         }
 
         if (is_string($address)) {
-            $company = json_decode($address);
+            $address = json_decode($address);
         }
 
         if (!is_array($address) && !is_object($address)) {
