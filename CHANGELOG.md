@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.1]
+### Added
+- Added `getDeliveryFee()` and `setDeliveryFee()` methods
+
 ## [2.0.0]
 ### Changed
 - Removed `psr/log` dependency

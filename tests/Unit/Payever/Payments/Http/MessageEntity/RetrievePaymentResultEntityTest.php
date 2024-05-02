@@ -29,6 +29,7 @@ class RetrievePaymentResultEntityTest extends AbstractMessageEntityTest
         'amount' => 200,
         'fee' => 20.5,
         'total' =>  220.5,
+        'delivery_fee' => 0,
         'address' => array(),
         'payment_details' => array(),
         'payment_details_array' => array('pan_id' => 'stub'),

@@ -32,6 +32,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\CancelItemsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequestV3;
 use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCreditRequest;
 use Payever\Sdk\Payments\Http\ResponseEntity\AuthorizePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CancelPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ClaimPaymentResponse;
@@ -50,6 +51,7 @@ use Payever\Sdk\Payments\Http\ResponseEntity\RetrievePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\SubmitPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ShippingGoodsPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CompanySearchResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\CompanySearchCreditResponse;
 
 /**
  * Class represents Payever Payments API Connector
@@ -81,6 +83,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_TRANSACTION = 'api/rest/v1/transactions/%s';
 
     const SUB_URL_COMPANY_SEARCH = 'api/b2b/search';
+    const SUB_URL_COMPANY_SEARCH_CREDIT = 'api/b2b/search/credit';
 
     /**
      * {@inheritdoc}
@@ -220,6 +223,27 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
             ->contentTypeIsJson()
             ->setRequestEntity($companySearchRequest)
             ->setResponseEntity(new CompanySearchResponse())
+            ->build();
+
+        return $this->executeRequest($request, OauthToken::SCOPE_CREATE_PAYMENT);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
+    public function companyCredit(CompanySearchCreditRequest $companySearchRequest)
+    {
+        $this->configuration->assertLoaded();
+
+        $request = RequestBuilder::post($this->getCompanySearchCreditURL())
+            ->addRawHeader(
+                $this->getToken(OauthToken::SCOPE_CREATE_PAYMENT)->getAuthorizationString()
+            )
+            ->contentTypeIsJson()
+            ->setRequestEntity($companySearchRequest)
+            ->setResponseEntity(new CompanySearchCreditResponse())
             ->build();
 
         return $this->executeRequest($request, OauthToken::SCOPE_CREATE_PAYMENT);
@@ -657,6 +681,16 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     protected function getCompanySearchURL()
     {
         return $this->getBaseUrl() . self::SUB_URL_COMPANY_SEARCH;
+    }
+
+    /**
+     * Returns URL for B2B Company Search Credit
+     *
+     * @return string
+     */
+    protected function getCompanySearchCreditURL()
+    {
+        return $this->getBaseUrl() . self::SUB_URL_COMPANY_SEARCH_CREDIT;
     }
 
     /**

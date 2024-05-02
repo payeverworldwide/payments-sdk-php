@@ -52,6 +52,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                             setThumbnail2(string $thumbnail2)
  * @method self                             setThumbnail3(string $thumbnail3)
  * @method self                             setIsSubmitMethod(bool $value)
+ * @method self                             setIsB2bMethod(bool $value)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @SuppressWarnings(PHPMD.TooManyFields)
@@ -118,6 +119,11 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     protected $isSubmitMethod;
 
     /**
+     * @var bool
+     */
+    protected $isB2bMethod;
+
+    /**
      * Is redirect method
      *
      * @return bool
@@ -169,5 +175,15 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     public function isSubmitMethod()
     {
         return (bool) $this->isSubmitMethod;
+    }
+
+    /**
+     * Is B2B method
+     *
+     * @return bool
+     */
+    public function isB2BMethod()
+    {
+        return (bool) $this->isB2bMethod;
     }
 }

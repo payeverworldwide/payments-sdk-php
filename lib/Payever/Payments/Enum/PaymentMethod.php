@@ -51,8 +51,8 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_IDEAL = 'ideal';
     const METHOD_ALLIANZ_TRADE_B2B_BNPL = 'allianz_trade_b2b_bnpl';
 
-    const MOBILE_REGEXP = '/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i';
-    const IOS_REGEXP =  '/(((iPhone([\d\W]+)|iPhone|iPad)(;|\s\d+;|\s\w+;|\s\d+\w+;)?(\s+)?(U;)?)(\s+)?(CPU|iOS)([^\);]+)?)/i';
+    const MOBILE_REGEXP = '/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i'; //phpcs:ignore
+    const IOS_REGEXP =  '/(((iPhone([\d\W]+)|iPhone|iPad)(;|\s\d+;|\s\w+;|\s\d+\w+;)?(\s+)?(U;)?)(\s+)?(CPU|iOS)([^\);]+)?)/i'; //phpcs:ignore
     const SAFARI_REGEXP = '/safari/i';
     const ANDROID_REGEXP = '/android/i';
     const CHROME_REGEXP = '/chrome/i';
@@ -88,6 +88,7 @@ class PaymentMethod extends EnumerableConstants
      * @param null/srting $userAgent
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function shouldHideOnCurrentDevice($method, $userAgent = null)
     {
@@ -207,7 +208,7 @@ class PaymentMethod extends EnumerableConstants
      */
     private static function isMobile($userAgent)
     {
-        return preg_match(static::MOBILE_REGEXP , $userAgent);
+        return preg_match(static::MOBILE_REGEXP, $userAgent);
     }
 
     /**
@@ -218,7 +219,7 @@ class PaymentMethod extends EnumerableConstants
      */
     private static function isIOS($userAgent)
     {
-        return preg_match(static::IOS_REGEXP , $userAgent);
+        return preg_match(static::IOS_REGEXP, $userAgent);
     }
 
     /**
@@ -229,7 +230,7 @@ class PaymentMethod extends EnumerableConstants
      */
     private static function isAndroidOS($userAgent)
     {
-        return preg_match(static::ANDROID_REGEXP , $userAgent);
+        return preg_match(static::ANDROID_REGEXP, $userAgent);
     }
 
     /**
@@ -240,7 +241,7 @@ class PaymentMethod extends EnumerableConstants
      */
     private static function isSafariBrowser($userAgent)
     {
-        return preg_match(static::SAFARI_REGEXP , $userAgent);
+        return preg_match(static::SAFARI_REGEXP, $userAgent);
     }
 
     /**
@@ -251,6 +252,6 @@ class PaymentMethod extends EnumerableConstants
      */
     private static function isChromeBrowser($userAgent)
     {
-        return preg_match(static::CHROME_REGEXP , $userAgent);
+        return preg_match(static::CHROME_REGEXP, $userAgent);
     }
 }

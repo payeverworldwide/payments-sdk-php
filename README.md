@@ -202,6 +202,23 @@ try {
 }
 ```
 
+##### Get Company credit level
+
+```php
+use Payever\Sdk\Payments\PaymentsApiClient;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCreditRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCredit\CompanyEntity;
+
+$company = new CompanyEntity();
+$company->setExternalId('81981372');
+
+$companySearchCredit = new CompanySearchCreditRequest();
+$companySearchCredit->setCompany($company);
+
+$paymentsApiClient = new PaymentsApiClient($clientConfiguration);
+$result = $paymentsApiClient->companyCredit($companySearchCredit);
+```
+
 ## License
 
 Please see the [license file][6] for more information.

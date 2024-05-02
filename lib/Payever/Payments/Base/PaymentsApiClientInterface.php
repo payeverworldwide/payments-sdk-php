@@ -17,6 +17,7 @@ use Payever\Sdk\Core\Base\CommonApiClientInterface;
 use Payever\Sdk\Core\Base\ResponseInterface;
 use Payever\Sdk\Payments\Http\RequestEntity\AuthorizePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCreditRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ClaimPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
@@ -95,6 +96,15 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return ResponseInterface
      */
     public function searchCompany(CompanySearchRequest $companySearchRequest);
+
+    /**
+     * Get company credit
+     *
+     * @param CompanySearchCreditRequest $companySearchRequest
+     *
+     * @return ResponseInterface
+     */
+    public function companyCredit(CompanySearchCreditRequest $companySearchRequest);
 
     /**
      * Requests payment details

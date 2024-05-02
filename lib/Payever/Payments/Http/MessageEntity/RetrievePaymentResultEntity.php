@@ -36,6 +36,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method string               getCurrency()
  * @method float                getPaymentFee()
  * @method float                getTotal()
+ * @method float                getDeliveryFee()
  * @method AddressEntity        getAddress()
  * @method AddressEntity        getShippingAddress()
  * @method PaymentDetailsEntity getPaymentDetails()
@@ -60,6 +61,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                 setFee(float $fee)
  * @method self                 setPaymentFee(float $paymentFee)
  * @method self                 setTotal(float $total)
+ * @method self                 setDeliveryFee(float $fee)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @SuppressWarnings(PHPMD.StaticAccess)
@@ -141,6 +143,11 @@ class RetrievePaymentResultEntity extends ResultEntity
 
     /** @var CartItemEntity[] */
     protected $items;
+
+    /**
+     * @var float|null
+     */
+    protected $deliveryFee;
 
     /**
      * Sets Created At
