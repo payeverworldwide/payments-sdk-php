@@ -124,6 +124,11 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     protected $isB2bMethod;
 
     /**
+     * @var array
+     */
+    protected $variants;
+
+    /**
      * Is redirect method
      *
      * @return bool
@@ -137,26 +142,33 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
      * Sets Status
      *
      * @param string $status
+     * @return $this
      */
     public function setStatus($status)
     {
         $this->status = $status == 'active';
+
+        return $this;
     }
 
     /**
      * Sets Options
      *
      * @param array $options
+     * @return $this
      */
     public function setOptions($options)
     {
         $this->options = new PaymentOptionOptionsEntity($options);
+
+        return $this;
     }
 
     /**
      * Sets Translations
      *
      * @param array $translations
+     * @return $this
      */
     public function setTranslations($translations)
     {
@@ -165,6 +177,8 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
         foreach ($translations as $item) {
             $this->translations[] = new PaymentOptionTranslationEntity($item);
         }
+
+        return $this;
     }
 
     /**

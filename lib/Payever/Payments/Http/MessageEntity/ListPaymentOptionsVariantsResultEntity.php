@@ -15,7 +15,7 @@
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
 /**
- * @method array|PaymentOptionVariantEntity[] getVariants()
+ * @method PaymentOptionVariantEntity[] getVariants()
  */
 class ListPaymentOptionsVariantsResultEntity extends AbstractPaymentOptionEntity
 {
@@ -51,6 +51,7 @@ class ListPaymentOptionsVariantsResultEntity extends AbstractPaymentOptionEntity
             $convertedOption->setShippingAddressAllowed($variant->getShippingAddressAllowed());
             $convertedOption->setShippingAddressEquality($variant->getShippingAddressEquality());
             $convertedOption->setVariantName($variant->getName());
+            $convertedOption->setVariantOptions($variant->getOptions());
 
             $result[$variant->getId()] = $convertedOption;
         }

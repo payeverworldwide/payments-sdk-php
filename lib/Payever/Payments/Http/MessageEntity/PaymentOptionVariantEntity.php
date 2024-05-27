@@ -22,6 +22,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method bool getAcceptFee()
  * @method bool getShippingAddressAllowed()
  * @method bool getShippingAddressEquality()
+ * @method PaymentOptionOptionsEntity getOptions()
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
@@ -42,11 +43,27 @@ class PaymentOptionVariantEntity extends MessageEntity
     /** @var bool $shippingAddressEquality */
     protected $shippingAddressEquality;
 
+    /** @var PaymentOptionOptionsEntity[] */
+    protected $options;
+
     /**
      * @return string
      */
     public function getId()
     {
         return $this->variantId;
+    }
+
+    /**
+     * Sets Options
+     *
+     * @param array $options
+     * @return $this
+     */
+    public function setOptions($options)
+    {
+        $this->options = new PaymentOptionOptionsEntity($options);
+
+        return $this;
     }
 }

@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.0]
+### Added
+- Added options for payment variants
+
+## [2.1.0]
+### Added
+- Added `isB2bMethod` flag
+- Added `/api/b2b/search/credit`
+
 ## [2.0.1]
 ### Added
 - Added `getDeliveryFee()` and `setDeliveryFee()` methods

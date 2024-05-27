@@ -19,6 +19,7 @@ namespace Payever\Sdk\Payments\Http\MessageEntity;
  * @method bool                             getAcceptFee()
  * @method bool                             getShippingAddressAllowed()
  * @method bool                             getShippingAddressEquality()
+ * @method PaymentOptionOptionsEntity       getVariantOptions()
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
@@ -32,6 +33,9 @@ class ListPaymentOptionsResultEntity extends AbstractPaymentOptionEntity
 
     /** @var bool $shippingAddressEquality */
     protected $shippingAddressEquality;
+
+    /** @var PaymentOptionOptionsEntity */
+    protected $variantOptions;
 
     /**
      * Sets Accept Fee
@@ -61,5 +65,17 @@ class ListPaymentOptionsResultEntity extends AbstractPaymentOptionEntity
     public function setShippingAddressEquality($shippingAddressEquality)
     {
         $this->shippingAddressEquality = filter_var($shippingAddressEquality, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * Set Variant Options
+     *
+     * @param PaymentOptionOptionsEntity $options
+     */
+    public function setVariantOptions($options)
+    {
+        $this->variantOptions = $options;
+
+        return $this;
     }
 }

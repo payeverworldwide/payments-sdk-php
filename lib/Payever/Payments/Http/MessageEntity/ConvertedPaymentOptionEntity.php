@@ -17,8 +17,10 @@ namespace Payever\Sdk\Payments\Http\MessageEntity;
 /**
  * @method string getVariantId()
  * @method string getVariantName()
+ * @method PaymentOptionOptionsEntity|null getVariantOptions()
  * @method self setVariantId(string $variantId)
  * @method self setVariantName(string $variantName)
+ * @method self setVariantOptions(PaymentOptionOptionsEntity $variantOptions)
  */
 class ConvertedPaymentOptionEntity extends ListPaymentOptionsResultEntity
 {
@@ -27,4 +29,7 @@ class ConvertedPaymentOptionEntity extends ListPaymentOptionsResultEntity
 
     /** @var string */
     protected $variantName;
+
+    /** @var PaymentOptionOptionsEntity */
+    protected $variantOptions;
 }
