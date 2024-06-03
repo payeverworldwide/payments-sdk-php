@@ -80,6 +80,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_RETRIEVE_API_CALL = 'api/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/oauth/%s/payment-options/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/oauth/%s/payment-options/variants/%s';
+    const SUB_URL_SETTINGS = 'api/shop/%s/settings/%s';
     const SUB_URL_TRANSACTION = 'api/rest/v1/transactions/%s';
 
     const SUB_URL_COMPANY_SEARCH = 'api/b2b/search';
@@ -609,6 +610,23 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
+    public function paymentSettingsRequest($businessUuid = '', $channel = '')
+    {
+        $businessUuid = $businessUuid ?: $this->getConfiguration()->getBusinessUuid();
+        $channel = $channel ?: $this->getConfiguration()->getChannelSet();
+
+        $request = RequestBuilder::get($this->getPaymentSettingsURL($businessUuid, $channel))
+                                 ->setResponseEntity(new PaymentSettingsResponse())
+                                 ->build();
+
+        return $this->executeRequest($request, OauthToken::SCOPE_PAYMENT_INFO);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
     public function getTransactionRequest($paymentId)
     {
         $this->configuration->assertLoaded();
@@ -865,6 +883,19 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
         return $this->getBaseUrl()
             . sprintf(self::SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS, $businessUuid, $channel)
             . (empty($params) ? '' : '?' . http_build_query($params));
+    }
+
+    /**
+     * Returns payment settings
+     *
+     * @param string $businessUuid
+     * @param string $channel
+     *
+     * @return string
+     */
+    protected function getPaymentSettingsURL($businessUuid, $channel)
+    {
+        return $this->getBaseUrl() . sprintf(self::SUB_URL_SETTINGS, $businessUuid, $channel);
     }
 
     /**
