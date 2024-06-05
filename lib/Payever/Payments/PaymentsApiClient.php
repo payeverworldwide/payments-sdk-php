@@ -44,6 +44,7 @@ use Payever\Sdk\Payments\Http\ResponseEntity\LatePaymentsResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ListPaymentOptionsResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ListPaymentOptionsWithVariantsResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ListPaymentsResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\PaymentSettingsResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RefundPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RemindPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RetrieveApiCallResponse;
@@ -80,10 +81,15 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_RETRIEVE_API_CALL = 'api/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/oauth/%s/payment-options/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/oauth/%s/payment-options/variants/%s';
+    const SUB_URL_SETTINGS = 'api/shop/%s/settings/%s';
     const SUB_URL_TRANSACTION = 'api/rest/v1/transactions/%s';
 
     const SUB_URL_COMPANY_SEARCH = 'api/b2b/search';
     const SUB_URL_COMPANY_SEARCH_CREDIT = 'api/b2b/search/credit';
+
+    const ACCOUNT_B2B_TYPE = 'b2b';
+    const ACCOUNT_B2C_TYPE = 'b2c';
+    const ACCOUNT_MIXED_TYPE = 'mixed';
 
     /**
      * {@inheritdoc}
@@ -609,6 +615,47 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
+    public function paymentSettingsRequest($businessUuid = '', $channel = '')
+    {
+        $businessUuid = $businessUuid ?: $this->getConfiguration()->getBusinessUuid();
+        $channel = $channel ?: $this->getConfiguration()->getChannelSet();
+
+        $request = RequestBuilder::get($this->getPaymentSettingsURL($businessUuid, $channel))
+                                 ->setResponseEntity(new PaymentSettingsResponse())
+                                 ->build();
+
+        return $this->executeRequest($request);
+    }
+
+    /**
+     * Returns if B2b Search is Active
+     *
+     * @param string $businessUuid
+     * @param string $channel
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function isB2bSearchActive($businessUuid = '', $channel = '')
+    {
+        /** @var PaymentSettingsResponse $response */
+        $response = $this->paymentSettingsRequest($businessUuid, $channel)->getResponseEntity();
+
+        if (
+            ($response->getType() === self::ACCOUNT_B2B_TYPE || $response->getType() === self::ACCOUNT_MIXED_TYPE)
+            && $response->getB2bSearch()
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
     public function getTransactionRequest($paymentId)
     {
         $this->configuration->assertLoaded();
@@ -865,6 +912,19 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
         return $this->getBaseUrl()
             . sprintf(self::SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS, $businessUuid, $channel)
             . (empty($params) ? '' : '?' . http_build_query($params));
+    }
+
+    /**
+     * Returns payment settings
+     *
+     * @param string $businessUuid
+     * @param string $channel
+     *
+     * @return string
+     */
+    protected function getPaymentSettingsURL($businessUuid, $channel)
+    {
+        return $this->getBaseUrl() . sprintf(self::SUB_URL_SETTINGS, $businessUuid, $channel);
     }
 
     /**

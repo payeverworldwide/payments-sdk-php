@@ -289,6 +289,17 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
     public function listPaymentOptionsWithVariantsRequest($params = [], $businessUuid = '', $channel = '');
 
     /**
+     * Returns account settings
+     *
+     *
+     * @param string $businessUuid Business UUID
+     * @param string $channel Shopsystem channel
+     *
+     * @return ResponseInterface
+     */
+    public function paymentSettingsRequest($businessUuid = '', $channel = '');
+
+    /**
      * Returns transaction
      *
      * @param string $paymentId Payment ID
