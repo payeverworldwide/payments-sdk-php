@@ -21,6 +21,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string getName()
  * @method float  getPrice()
  * @method float  getPriceNetto()
+ * @method float  getPriceNet()
  * @method float  getVatRate()
  * @method float  getQuantity()
  * @method string getDescription()
@@ -31,6 +32,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self   setName(string $name)
  * @method self   setPrice(float $price)
  * @method self   setPriceNetto(float $priceNetto)
+ * @method self   setPriceNet(float $priceNet)
  * @method self   setVatRate(float $vatRate)
  * @method self   setQuantity(float $quantity)
  * @method self   setDescription(string $description)
@@ -48,6 +50,9 @@ class CartItemEntity extends MessageEntity
 
     /** @var float $priceNetto */
     protected $priceNetto;
+
+    /** @var float $priceNet */
+    protected $priceNet;
 
     /** @var float $vatRate */
     protected $vatRate;

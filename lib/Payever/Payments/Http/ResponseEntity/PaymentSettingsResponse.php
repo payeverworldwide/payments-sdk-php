@@ -13,6 +13,7 @@
 
 namespace Payever\Sdk\Payments\Http\ResponseEntity;
 
+use Payever\Sdk\Core\Helper\StringHelper;
 use Payever\Sdk\Core\Http\ResponseEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\PaymentSettingsAddressEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\PaymentSettingsLanguagesEntity;
@@ -30,6 +31,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\PaymentSettingsLanguagesEntity;
  * @method boolean getTestingMode()
  * @method self    setTestingMode(boolean $testingMode)
  * @method boolean getCompanyAddress()
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class PaymentSettingsResponse extends ResponseEntity
 {
@@ -77,7 +79,7 @@ class PaymentSettingsResponse extends ResponseEntity
 
         if ($languages && is_array($languages)) {
             foreach ($languages as $language) {
-                $this->languages[] = new PaymentSettingsLanguagesEntity($languages);
+                $this->languages[] = new PaymentSettingsLanguagesEntity($language);
             }
         }
 

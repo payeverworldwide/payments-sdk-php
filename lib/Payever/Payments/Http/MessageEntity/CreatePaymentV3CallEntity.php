@@ -13,6 +13,7 @@
 
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
+use DateTime;
 use Payever\Sdk\Core\Helper\StringHelper;
 use Payever\Sdk\Core\Http\MessageEntity\CallEntity;
 
@@ -183,12 +184,22 @@ class CreatePaymentV3CallEntity extends CallEntity
     /**
      * Sets Created At
      *
-     * @param string $createdAt
+     * @param DateTime|string $createdAt
      * @return self
      */
     public function setCreatedAt($createdAt)
     {
-        if ($createdAt) {
+        if (!$createdAt) {
+            return $this;
+        }
+
+        if ($createdAt instanceof DateTime) {
+            $this->createdAt = $createdAt;
+
+            return $this;
+        }
+
+        if (is_string($createdAt)) {
             $this->createdAt = date_create($createdAt);
         }
 

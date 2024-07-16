@@ -26,6 +26,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
 use Payever\Sdk\Payments\Http\RequestEntity\ListPaymentsRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\RefundPaymentRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\SettlePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ShippingGoodsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\RefundItemsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CancelItemsPaymentRequest;
@@ -49,6 +50,7 @@ use Payever\Sdk\Payments\Http\ResponseEntity\RefundPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RemindPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RetrieveApiCallResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\RetrievePaymentResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\SettlePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\SubmitPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\ShippingGoodsPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\CompanySearchResponse;
@@ -78,6 +80,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_CANCEL_PAYMENT = 'api/payment/cancel/%s';
     const SUB_URL_CLAIM_PAYMENT = 'api/payment/claim/%s';
     const SUB_URL_INVOICE_PAYMENT = 'api/payment/invoice/%s';
+    const SUB_URL_SETTLE_PAYMENT = 'api/payment/settle/%s';
     const SUB_URL_RETRIEVE_API_CALL = 'api/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/oauth/%s/payment-options/%s';
     const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/oauth/%s/payment-options/variants/%s';
@@ -556,6 +559,27 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
+    public function settlePaymentRequest($paymentId, SettlePaymentRequest $paymentRequest = null)
+    {
+        $this->configuration->assertLoaded();
+
+        $request = RequestBuilder::post($this->getSettlePaymentURL($paymentId))
+            ->addRawHeader(
+                $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
+            )
+            ->contentTypeIsJson()
+            ->setRequestEntity($paymentRequest ?: new SettlePaymentRequest())
+            ->setResponseEntity(new SettlePaymentResponse())
+            ->build();
+
+        return $this->executeRequest($request);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
     public function retrieveApiCallRequest($callId)
     {
         $this->configuration->assertLoaded();
@@ -868,6 +892,18 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     protected function getInvoicePaymentURL($paymentId)
     {
         return $this->getBaseUrl() . sprintf(self::SUB_URL_INVOICE_PAYMENT, $paymentId);
+    }
+
+    /**
+     * Returns URL for Settle Payment path
+     *
+     * @param string $paymentId
+     *
+     * @return string
+     */
+    protected function getSettlePaymentURL($paymentId)
+    {
+        return $this->getBaseUrl() . sprintf(self::SUB_URL_SETTLE_PAYMENT, $paymentId);
     }
 
     /**

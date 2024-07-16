@@ -255,6 +255,22 @@ class ActionDecider implements ActionDeciderInterface
     }
 
     /**
+     * Check if the settle action for the transaction is allowed
+     *
+     * @param string $paymentId
+     * @param bool $throwException
+     *
+     * @return bool
+     *
+     * @throws \Exception when $throwException is true and target action is not allowed
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    public function isSettleAllowed($paymentId, $throwException = true)
+    {
+        return $this->isActionAllowed($paymentId, static::ACTION_SETTLE, $throwException);
+    }
+
+    /**
      * @param string $paymentId
      * @return string[]
      */
