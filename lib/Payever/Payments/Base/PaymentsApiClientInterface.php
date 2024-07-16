@@ -22,15 +22,11 @@ use Payever\Sdk\Payments\Http\RequestEntity\ClaimPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
-use Payever\Sdk\Payments\Http\RequestEntity\SettlePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequestV3;
 use Payever\Sdk\Payments\Http\RequestEntity\ListPaymentsRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ShippingGoodsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\PaymentItemEntity;
-use Payever\Sdk\Payments\Http\ResponseEntity\ClaimPaymentResponse;
-use Payever\Sdk\Payments\Http\ResponseEntity\InvoicePaymentResponse;
-use Payever\Sdk\Payments\Http\ResponseEntity\SettlePaymentResponse;
 
 /**
  * Interface represents Payever Payments API Connector
@@ -244,17 +240,6 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
     public function cancelItemsPaymentRequest($paymentId, $items, $deliveryFee = null, $uniqueIdentifier = null);
 
     /**
-     * Sends a request to invoice payment
-     *
-     * @param string $paymentId Payment ID
-     * @param null|float $amount
-     * @param null|string $uniqueIdentifier
-     *
-     * @return InvoicePaymentResponse
-     */
-    public function invoicePaymentRequest($paymentId, $amount = null, $uniqueIdentifier = null);
-
-    /**
      * Sends a request to claim payment
      *
      * @link https://docs.payever.org/api/payments/order-management/claim Documentation
@@ -262,19 +247,9 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @param string $paymentId Payment ID
      * @param ClaimPaymentRequest $paymentRequest Specify the claim payment request.
      *
-     * @return ClaimPaymentResponse
+     * @return ResponseInterface
      */
     public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest);
-
-    /**
-     * Sends a request to settle payment
-     *
-     * @param string $paymentId Payment ID
-     * @param SettlePaymentRequest $paymentRequest Specify the settle payment request.
-     *
-     * @return SettlePaymentResponse
-     */
-    public function settlePaymentRequest($paymentId, SettlePaymentRequest $paymentRequest = null);
 
     /**
      * Requests serialized API Call record
@@ -312,17 +287,6 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return ResponseInterface
      */
     public function listPaymentOptionsWithVariantsRequest($params = [], $businessUuid = '', $channel = '');
-
-    /**
-     * Returns account settings
-     *
-     *
-     * @param string $businessUuid Business UUID
-     * @param string $channel Shopsystem channel
-     *
-     * @return ResponseInterface
-     */
-    public function paymentSettingsRequest($businessUuid = '', $channel = '');
 
     /**
      * Returns transaction
