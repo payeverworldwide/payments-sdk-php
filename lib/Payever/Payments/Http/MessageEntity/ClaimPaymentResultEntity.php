@@ -18,6 +18,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
 
 /**
  * This class represents Claim Payment Result Entity
+ * @todo Make common class for `SettlePaymentResultEntity`
  *
  * @method AddressEntity        getAddress()
  * @method float                getAmount()

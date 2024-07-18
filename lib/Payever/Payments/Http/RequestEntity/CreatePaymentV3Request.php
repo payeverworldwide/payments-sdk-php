@@ -13,6 +13,9 @@
 
 namespace Payever\Sdk\Payments\Http\RequestEntity;
 
+use DateTime;
+use Payever\Sdk\Core\Helper\DataHelper;
+use Payever\Sdk\Core\Helper\StringHelper;
 use Payever\Sdk\Core\Http\RequestEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\AttributesEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\CartItemEntity;
@@ -71,6 +74,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\VerifyEntity;
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyFields)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class CreatePaymentV3Request extends RequestEntity
 {
@@ -237,25 +241,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets Purchase
      *
-     * @param array|string $purchase
+     * @param PurchaseEntity|array $purchase
      *
      * @return $this
      */
     public function setPurchase($purchase)
     {
-        if (!$purchase) {
-            return $this;
+        $purchase = DataHelper::getEntityInstance($purchase, PurchaseEntity::class);
+        if ($purchase) {
+            $this->purchase = $purchase;
         }
-
-        if (is_string($purchase)) {
-            $purchase = json_decode($purchase);
-        }
-
-        if (!is_array($purchase) && !is_object($purchase)) {
-            return $this;
-        }
-
-        $this->purchase = new PurchaseEntity($purchase);
 
         return $this;
     }
@@ -263,25 +258,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets Customer
      *
-     * @param CustomerEntity|array|string $customer
+     * @param CustomerEntity|array $customer
      *
      * @return $this
      */
     public function setCustomer($customer)
     {
-        if (!$customer) {
-            return $this;
+        $customer = DataHelper::getEntityInstance($customer, CustomerEntity::class);
+        if ($customer) {
+            $this->customer = $customer;
         }
-
-        if (is_string($customer)) {
-            $customer = json_decode($customer);
-        }
-
-        if (!is_array($customer) && !is_object($customer)) {
-            return $this;
-        }
-
-        $this->customer = new CustomerEntity($customer);
 
         return $this;
     }
@@ -289,25 +275,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets Company
      *
-     * @param CompanyEntity|array|string $company
+     * @param CompanyEntity|array $company
      *
      * @return $this
      */
     public function setCompany($company)
     {
-        if (!$company) {
-            return $this;
+        $company = DataHelper::getEntityInstance($company, CompanyEntity::class);
+        if ($company) {
+            $this->company = $company;
         }
-
-        if (is_string($company)) {
-            $company = json_decode($company);
-        }
-
-        if (!is_array($company) && !is_object($company)) {
-            return $this;
-        }
-
-        $this->company = new CompanyEntity($company);
 
         return $this;
     }
@@ -315,25 +292,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets Shipping option
      *
-     * @param ShippingOptionEntity|array|string $shipping
+     * @param ShippingOptionEntity|array $shippingOption
      *
      * @return $this
      */
-    public function setShippingOption($shipping)
+    public function setShippingOption($shippingOption)
     {
-        if (!$shipping) {
-            return $this;
+        $shippingOption = DataHelper::getEntityInstance($shippingOption, ShippingOptionEntity::class);
+        if ($shippingOption) {
+            $this->shippingOption = $shippingOption;
         }
-
-        if (is_string($shipping)) {
-            $shipping = json_decode($shipping);
-        }
-
-        if (!is_array($shipping) && !is_object($shipping)) {
-            return $this;
-        }
-
-        $this->shippingOption = new ShippingOptionEntity($shipping);
 
         return $this;
     }
@@ -352,7 +320,11 @@ class CreatePaymentV3Request extends RequestEntity
         }
 
         if (is_string($cart)) {
-            $cart = json_decode($cart);
+            try {
+                $cart = StringHelper::jsonDecode($cart, true);
+            } catch (\UnexpectedValueException $exception) {
+                return $this;
+            }
         }
 
         if (!is_array($cart)) {
@@ -360,7 +332,6 @@ class CreatePaymentV3Request extends RequestEntity
         }
 
         $this->cart = [];
-
         foreach ($cart as $item) {
             $this->cart[] = new CartItemV3Entity($item);
         }
@@ -372,7 +343,7 @@ class CreatePaymentV3Request extends RequestEntity
      * Sets Splits
      * Routing of accounts and amount to split payment.
      *
-     * @param SplitItemEntity[]|array|string $splits
+     * @param SplitItemEntity[]|array $splits
      *
      * @return $this
      */
@@ -383,7 +354,11 @@ class CreatePaymentV3Request extends RequestEntity
         }
 
         if (is_string($splits)) {
-            $splits = json_decode($splits);
+            try {
+                $splits = StringHelper::jsonDecode($splits, true);
+            } catch (\UnexpectedValueException $exception) {
+                return $this;
+            }
         }
 
         if (!is_array($splits)) {
@@ -391,7 +366,6 @@ class CreatePaymentV3Request extends RequestEntity
         }
 
         $this->splits = [];
-
         foreach ($splits as $split) {
             $this->splits[] = new SplitItemEntity($split);
         }
@@ -402,25 +376,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets shipping address
      *
-     * @param CustomerAddressV3Entity|string $shippingAddress
+     * @param CustomerAddressV3Entity|array $shippingAddress
      *
      * @return $this
      */
     public function setShippingAddress($shippingAddress)
     {
-        if (!$shippingAddress) {
-            return $this;
+        $shippingAddress = DataHelper::getEntityInstance($shippingAddress, CustomerAddressV3Entity::class);
+        if ($shippingAddress) {
+            $this->shippingAddress = $shippingAddress;
         }
-
-        if (is_string($shippingAddress)) {
-            $shippingAddress = json_decode($shippingAddress);
-        }
-
-        if (!is_array($shippingAddress) && !is_object($shippingAddress)) {
-            return $this;
-        }
-
-        $this->shippingAddress = new CustomerAddressV3Entity($shippingAddress);
 
         return $this;
     }
@@ -428,25 +393,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets billing address
      *
-     * @param CustomerAddressV3Entity|string $billingAddress
+     * @param CustomerAddressV3Entity|array $billingAddress
      *
      * @return $this
      */
     public function setBillingAddress($billingAddress)
     {
-        if (!$billingAddress) {
-            return $this;
+        $billingAddress = DataHelper::getEntityInstance($billingAddress, CustomerAddressV3Entity::class);
+        if ($billingAddress) {
+            $this->billingAddress = $billingAddress;
         }
-
-        if (is_string($billingAddress)) {
-            $billingAddress = json_decode($billingAddress);
-        }
-
-        if (!is_array($billingAddress) && !is_object($billingAddress)) {
-            return $this;
-        }
-
-        $this->billingAddress = new CustomerAddressV3Entity($billingAddress);
 
         return $this;
     }
@@ -460,19 +416,10 @@ class CreatePaymentV3Request extends RequestEntity
      */
     public function setAttributes($attributes)
     {
-        if (!$attributes) {
-            return $this;
+        $attributes = DataHelper::getEntityInstance($attributes, AttributesEntity::class);
+        if ($attributes) {
+            $this->attributes = $attributes;
         }
-
-        if (is_string($attributes)) {
-            $attributes = json_decode($attributes);
-        }
-
-        if (!is_array($attributes) && !is_object($attributes)) {
-            return $this;
-        }
-
-        $this->attributes = new AttributesEntity($attributes);
 
         return $this;
     }
@@ -486,19 +433,10 @@ class CreatePaymentV3Request extends RequestEntity
      */
     public function setUrls($urls)
     {
-        if (!$urls) {
-            return $this;
+        $urls = DataHelper::getEntityInstance($urls, UrlsEntity::class);
+        if ($urls) {
+            $this->urls = $urls;
         }
-
-        if (is_string($urls)) {
-            $urls = json_decode($urls);
-        }
-
-        if (!is_array($urls) && !is_object($urls)) {
-            return $this;
-        }
-
-        $this->urls = new UrlsEntity($urls);
 
         return $this;
     }
@@ -512,19 +450,10 @@ class CreatePaymentV3Request extends RequestEntity
      */
     public function setVerify($verify)
     {
-        if (!$verify) {
-            return $verify;
+        $verify = DataHelper::getEntityInstance($verify, VerifyEntity::class);
+        if ($verify) {
+            $this->verify = $verify;
         }
-
-        if (is_string($verify)) {
-            $verify = json_decode($verify);
-        }
-
-        if (!is_array($verify) && !is_object($verify)) {
-            return $this;
-        }
-
-        $this->verify = new VerifyEntity($verify);
 
         return $this;
     }
@@ -538,19 +467,10 @@ class CreatePaymentV3Request extends RequestEntity
      */
     public function setSeller($seller)
     {
-        if (!$seller) {
-            return $seller;
+        $seller = DataHelper::getEntityInstance($seller, SellerEntity::class);
+        if ($seller) {
+            $this->seller = $seller;
         }
-
-        if (is_string($seller)) {
-            $seller = json_decode($seller);
-        }
-
-        if (!is_array($seller) && !is_object($seller)) {
-            return $this;
-        }
-
-        $this->seller = new SellerEntity($seller);
 
         return $this;
     }
@@ -564,19 +484,10 @@ class CreatePaymentV3Request extends RequestEntity
      */
     public function setOptions($options)
     {
-        if (!$options) {
-            return $options;
+        $options = DataHelper::getEntityInstance($options, OptionsEntity::class);
+        if ($options) {
+            $this->options = $options;
         }
-
-        if (is_string($options)) {
-            $options = json_decode($options);
-        }
-
-        if (!is_array($options) && !is_object($options)) {
-            return $this;
-        }
-
-        $this->options = new OptionsEntity($options);
 
         return $this;
     }
@@ -584,31 +495,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets payment data
      *
-     * @param PaymentDataEntity|array|string $paymentData
+     * @param PaymentDataEntity|array $paymentData
      *
      * @return $this
      */
     public function setPaymentData($paymentData)
     {
-        if (!$paymentData) {
-            return $this;
-        }
-
-        if ($paymentData instanceof PaymentDataEntity) {
+        $paymentData = DataHelper::getEntityInstance($paymentData, PaymentDataEntity::class);
+        if ($paymentData) {
             $this->paymentData = $paymentData;
-
-            return $this;
         }
-
-        if (is_string($paymentData)) {
-            $paymentData = json_decode($paymentData, true);
-        }
-
-        if (!is_array($paymentData)) {
-            return $this;
-        }
-
-        $this->paymentData = new PaymentDataEntity($paymentData);
 
         return $this;
     }
@@ -616,25 +512,16 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Sets Channel
      *
-     * @param ChannelEntity|string $channel
+     * @param ChannelEntity|array $channel
      *
      * @return $this
      */
     public function setChannel($channel)
     {
-        if (!$channel) {
-            return $this;
+        $channel = DataHelper::getEntityInstance($channel, ChannelEntity::class);
+        if ($channel) {
+            $this->channel = $channel;
         }
-
-        if (is_string($channel)) {
-            $channel = json_decode($channel);
-        }
-
-        if (!is_array($channel) && !is_object($channel)) {
-            return $this;
-        }
-
-        $this->channel = new ChannelEntity($channel);
 
         return $this;
     }
@@ -642,13 +529,23 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * Define specific expire time for a payment, default has no expiration.
      *
-     * @param string $expiresAt
+     * @param DateTime|string $expiresAt
      *
      * @return $this
      */
     public function setExpiresAt($expiresAt)
     {
-        if ($expiresAt) {
+        if (!$expiresAt) {
+            return $this;
+        }
+
+        if ($expiresAt instanceof DateTime) {
+            $this->expiresAt = $expiresAt;
+
+            return $this;
+        }
+
+        if (is_string($expiresAt)) {
             $this->expiresAt = date_create($expiresAt);
         }
 

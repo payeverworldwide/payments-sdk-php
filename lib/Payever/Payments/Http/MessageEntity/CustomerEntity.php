@@ -13,6 +13,7 @@
 
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
+use DateTime;
 use Payever\Sdk\Core\Base\MessageEntity;
 
 /**
@@ -21,7 +22,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string getType()
  * @method string getGender()
  * @method string getCountry()
- * @method \DateTime|null getBirthdate()
+ * @method DateTime|null getBirthdate()
  * @method string getPhone()
  * @method string getEmail()
  * @method string getSocialSecurityNumber()
@@ -45,7 +46,7 @@ class CustomerEntity extends MessageEntity
     protected $gender;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      */
     protected $birthdate;
 
@@ -80,19 +81,29 @@ class CustomerEntity extends MessageEntity
     public function isValid()
     {
         return parent::isValid() && ($this->email || $this->phone) &&
-            (!$this->birthdate || $this->birthdate instanceof \DateTime);
+            (!$this->birthdate || $this->birthdate instanceof DateTime);
     }
 
     /**
      * Sets Birthdate
      *
-     * @param string $birthdate
+     * @param DateTime|string $birthdate
      *
      * @return $this
      */
     public function setBirthdate($birthdate)
     {
-        if ($birthdate) {
+        if (!$birthdate) {
+            return $this;
+        }
+
+        if ($birthdate instanceof DateTime) {
+            $this->birthdate = $birthdate;
+
+            return $this;
+        }
+
+        if (is_string($birthdate)) {
             $this->birthdate = date_create($birthdate);
         }
 

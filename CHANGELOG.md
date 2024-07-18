@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.4.1]
+### Changed
+Company Search result fixes
+
+## [2.4.0]
+### Added
+- Implemented Settle payment action
+
+## [2.3.0]
+### Added
+- Add shop setting endpoint
+
+### Changed
+- Updated setters in `CreatePaymentV3Request` class
+- Improved parameters handling using `DataHelper`
+- Fixed possible problems with `DataTime` objects and `date_create()` functions
+- Fixed for `CustomerEntity` class
+
 ## [2.2.0]
 ### Added
 - Added options for payment variants
