@@ -1,8 +1,12 @@
 # Changelog
 
+## [2.4.2]
+### Changed
+- Made allianz_trade_b2b_bnpl as hidden method arter failure payment
+
 ## [2.4.1]
 ### Changed
-Company Search result fixes
+- Company Search result fixes
 
 ## [2.4.0]
 ### Added

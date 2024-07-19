@@ -184,6 +184,7 @@ class PaymentMethod extends EnumerableConstants
         return [
             static::METHOD_SANTANDER_DE_FACTORING,
             static::METHOD_SANTANDER_DE_INVOICE,
+            static::METHOD_ALLIANZ_TRADE_B2B_BNPL,
         ];
     }
 
