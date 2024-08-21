@@ -50,6 +50,8 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_GOOGLE_PAY = 'google_pay';
     const METHOD_IDEAL = 'ideal';
     const METHOD_ALLIANZ_TRADE_B2B_BNPL = 'allianz_trade_b2b_bnpl';
+    const METHOD_PSA_B2B_BNPL = 'psa_b2b_bnpl';
+    const METHOD_BFS_B2B_BNPL = 'bfs_b2b_bnpl';
 
     const MOBILE_REGEXP = '/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i'; //phpcs:ignore
     const IOS_REGEXP =  '/(((iPhone([\d\W]+)|iPhone|iPad)(;|\s\d+;|\s\w+;|\s\d+\w+;)?(\s+)?(U;)?)(\s+)?(CPU|iOS)([^\);]+)?)/i'; //phpcs:ignore
@@ -198,6 +200,36 @@ class PaymentMethod extends EnumerableConstants
         return [
             static::METHOD_APPLE_PAY,
             static::METHOD_GOOGLE_PAY,
+        ];
+    }
+
+    /**
+     * Returns B2B payment methods
+     *
+     * @return array
+     */
+    private static function getB2bMethods()
+    {
+        return [
+            static::METHOD_ALLIANZ_TRADE_B2B_BNPL,
+            static::METHOD_PSA_B2B_BNPL,
+            static::METHOD_BFS_B2B_BNPL,
+        ];
+    }
+
+    /**
+     * Returns (mixed) payment methods which can be used for B2B and B2C customers
+     *
+     * @return array
+     */
+    private static function getMixedMethods()
+    {
+        return [
+            static::METHOD_APPLE_PAY,
+            static::METHOD_GOOGLE_PAY,
+            static::METHOD_PAYPAL,
+            static::METHOD_STRIPE_CREDIT_CARD,
+            static::METHOD_STRIPE_DIRECT_DEBIT,
         ];
     }
 

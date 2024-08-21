@@ -14,6 +14,7 @@
 namespace Payever\Sdk\Payments\Http\MessageEntity;
 
 use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
+use Payever\Sdk\Payments\Enum\BusinessType;
 
 /**
  * This class represents List Payment Options Result Entity
@@ -36,6 +37,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method PaymentOptionOptionsEntity       getOptions()
  * @method PaymentOptionTranslationEntity[] getTranslations()
  * @method bool                             getIsSubmitMethod()
+ * @method string                           getBusinessType()
  * @method self                             setId(string $id)
  * @method self                             setName(string $name)
  * @method self                             setVariableFee(float $variableFee)
@@ -53,6 +55,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                             setThumbnail3(string $thumbnail3)
  * @method self                             setIsSubmitMethod(bool $value)
  * @method self                             setIsB2bMethod(bool $value)
+ * @method self                             setBusinessType(string $businessType)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @SuppressWarnings(PHPMD.TooManyFields)
@@ -113,19 +116,16 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     /** @var PaymentOptionTranslationEntity[] $translations */
     protected $translations;
 
-    /**
-     * @var bool
-     */
+    /** @var bool $isSubmitMethod */
     protected $isSubmitMethod;
 
-    /**
-     * @var bool
-     */
+    /** @var bool $isB2bMethod */
     protected $isB2bMethod;
 
-    /**
-     * @var array
-     */
+    /** @var string $businessType */
+    protected $businessType;
+
+    /** @var array $variants */
     protected $variants;
 
     /**
@@ -199,5 +199,35 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
     public function isB2BMethod()
     {
         return (bool) $this->isB2bMethod;
+    }
+
+    /**
+     * Is mixed business type
+     *
+     * @return bool
+     */
+    public function isMixedBusinessType()
+    {
+        return (bool) ($this->getBusinessType() === BusinessType::MIXED);
+    }
+
+    /**
+     * Is B2B business type
+     *
+     * @return bool
+     */
+    public function isB2BBusinessType()
+    {
+        return (bool) ($this->getBusinessType() === BusinessType::B2B);
+    }
+
+    /**
+     * Is B2C business type
+     *
+     * @return bool
+     */
+    public function isB2CBusinessType()
+    {
+        return (bool) ($this->getBusinessType() === BusinessType::B2C);
     }
 }

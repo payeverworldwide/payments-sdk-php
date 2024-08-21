@@ -239,6 +239,22 @@ class ActionDecider implements ActionDeciderInterface
     }
 
     /**
+     * Check if the claim upload action for the transaction is allowed
+     *
+     * @param string $paymentId
+     * @param bool $throwException
+     *
+     * @return bool
+     *
+     * @throws \Exception when $throwException is true and target action is not allowed
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    public function isClaimUploadAllowed($paymentId, $throwException = true)
+    {
+        return $this->isActionAllowed($paymentId, static::ACTION_CLAIM_UPLOAD, $throwException);
+    }
+
+    /**
      * Check if the claim action for the transaction is allowed
      *
      * @param string $paymentId

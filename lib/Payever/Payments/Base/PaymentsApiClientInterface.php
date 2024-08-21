@@ -19,6 +19,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\AuthorizePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCreditRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ClaimPaymentRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\ClaimUploadPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
@@ -265,6 +266,18 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return ClaimPaymentResponse
      */
     public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest);
+
+    /**
+     * Sends a request to claim upload payment
+     *
+     * @link https://docs.payever.org/api/payments/order-management/claim-upload Documentation
+     *
+     * @param string $paymentId Payment ID
+     * @param ClaimUploadPaymentRequest $paymentRequest Specify the claim payment request.
+     *
+     * @return ResponseInterface
+     */
+    public function claimUploadPaymentRequest($paymentId, ClaimUploadPaymentRequest $paymentRequest);
 
     /**
      * Sends a request to settle payment

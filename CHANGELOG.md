@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.5.0]
+### Added
+- Added business type property to AbstractPaymentOptionEntity
+- Added claim_upload action
+
 ## [2.4.2]
 ### Changed
 - Made allianz_trade_b2b_bnpl as hidden method arter failure payment

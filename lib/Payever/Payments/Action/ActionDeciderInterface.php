@@ -31,6 +31,7 @@ interface ActionDeciderInterface
     const ACTION_REFUND = 'refund';
     const ACTION_SHIPPING_GOODS = 'shipping_goods';
     const ACTION_CLAIM = 'claim';
+    const ACTION_CLAIM_UPLOAD = 'claim_upload';
     const ACTION_SETTLE = 'settle';
     const ACTION_UPLOAD = 'upload';
     const ACTION_EDIT = 'edit';

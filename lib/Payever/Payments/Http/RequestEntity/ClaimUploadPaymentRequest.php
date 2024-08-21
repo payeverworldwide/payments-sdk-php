@@ -16,22 +16,26 @@ namespace Payever\Sdk\Payments\Http\RequestEntity;
 use Payever\Sdk\Core\Http\RequestEntity;
 
 /**
- * This class represents Claim Documents Info RequestInterface Entity
+ * This class represents Claim Payment RequestInterface Entity
  *
  * @method string getFileName()
  * @method self   setFileName(string $fileName)
+ * @method string getMimeType()
+ * @method self   setMimeType(string $mimeType)
  * @method string getDocumentType()
  * @method self   setDocumentType(string $documentType)
  * @method string getBase64Content()
  * @method self   setBase64Content(string $base64Content)
  */
-class ClaimDocumentsInfoEntity extends RequestEntity
+class ClaimUploadPaymentRequest extends RequestEntity
 {
-    const DOCUMENT_TYPE_INVOICE = 'Invoice';
-    const DOCUMENT_TYPE_PROOF_OF_DELIVERY = 'ProofOfDelivery';
+    const DOCUMENT_TYPE_INVOICE = 'I01';
 
     /** @var string $fileName */
     protected $fileName;
+
+    /** @var string $mimeType */
+    protected $mimeType;
 
     /** @var string $documentType */
     protected $documentType;
@@ -46,6 +50,7 @@ class ClaimDocumentsInfoEntity extends RequestEntity
     {
         return parent::isValid() &&
             ($this->fileName && is_string($this->fileName)) &&
+            ($this->mimeType && is_string($this->mimeType)) &&
             ($this->documentType && is_string($this->documentType)) &&
             ($this->base64Content && is_string($this->base64Content) && base64_decode($this->base64Content));
     }
@@ -55,7 +60,7 @@ class ClaimDocumentsInfoEntity extends RequestEntity
      */
     public function getRequired()
     {
-        return ['fileName', 'documentType', 'base64Content'];
+        return ['fileName', 'mimeType', 'documentType', 'base64Content'];
     }
 
     /**
