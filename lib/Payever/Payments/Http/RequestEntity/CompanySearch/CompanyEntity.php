@@ -29,6 +29,37 @@ class CompanyEntity extends RequestEntity
     protected $name;
 
     /**
+     * @var CompanyCustomEntity
+     */
+    protected $custom;
+
+    /**
+     * Set Custom.
+     *
+     * @param CompanyCustomEntity|array|string $custom
+     *
+     * @return $this
+     */
+    public function setCustom($custom)
+    {
+        if (!$custom) {
+            return $this;
+        }
+
+        if (is_string($custom)) {
+            $custom = json_decode($custom);
+        }
+
+        if (!is_array($custom) && !is_object($custom)) {
+            return $this;
+        }
+
+        $this->custom = new CompanyCustomEntity($custom);
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getRequired()

@@ -25,7 +25,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\CompanyIdentifierEntity;
  * @method string                    getPhoneNumber()
  * @method string                    getLegalFormCode()
  * @method CompanyAddressEntity      getAddress()
- * @method CompanyIdentifierEntity[] getCompanyIdentifiers()
+ * @method CompanyIdentifierEntity   getCompanyIdentifier()
  * @method self                      setId(string $value)
  * @method self                      setName(string $value)
  * @method self                      setPhoneNumber(string $value)
@@ -65,9 +65,9 @@ class CompanySearchResultEntity extends ResultEntity
     protected $address;
 
     /**
-     * @var CompanyIdentifierEntity[]
+     * @var CompanyIdentifierEntity
      */
-    protected $companyIdentifiers;
+    protected $companyIdentifier;
 
     /**
      * @var string
@@ -88,25 +88,14 @@ class CompanySearchResultEntity extends ResultEntity
     }
 
     /**
-     * Set Company Identifiers.
+     * Set Company Identifier.
      *
-     * @param $identifiers
+     * @param $identifier
      * @return $this
      */
-    public function setCompanyIdentifiers($identifiers)
+    public function setCompanyIdentifier($identifier)
     {
-        $this->companyIdentifiers = [];
-
-        if (is_array($identifiers)) {
-            foreach ($identifiers as $identifier) {
-                $result = new CompanyIdentifierEntity();
-                $result->setIdValue($identifier->idValue)
-                    ->setIdTypeCode($identifier->idTypeCode)
-                    ->setIsPrincipal($identifier->isPrincipal);
-
-                $this->companyIdentifiers[] = $result;
-            }
-        }
+        $this->companyIdentifier = new CompanyIdentifierEntity($identifier);
 
         return $this;
     }

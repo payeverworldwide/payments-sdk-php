@@ -43,6 +43,10 @@ class CompanySearchResponse extends ResponseEntity
             foreach ($result as $item) {
                 $this->result[] = new CompanySearchResultEntity($item);
             }
+
+            return;
         }
+
+        $this->result = new CompanySearchResultEntity($result);
     }
 }
