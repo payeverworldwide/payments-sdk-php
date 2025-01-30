@@ -22,6 +22,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  *
  * @method string               getId()
  * @method string               getStatus()
+ * @method string               getSpecificStatus()
  * @method string               getColorState()
  * @method string               getMerchantName()
  * @method string               getCustomerName()
@@ -47,6 +48,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method CartItemEntity[]     getItems()
  * @method self                 setId(string $id)
  * @method self                 setStatus(string $status)
+ * @method self                 setSpecificStatus(string $specificStatus)
  * @method self                 setColorState(string $colorState)
  * @method self                 setMerchantName(string $merchantName)
  * @method self                 setCustomerName(string $customerName)
@@ -74,6 +76,9 @@ class RetrievePaymentResultEntity extends ResultEntity
 
     /** @var string $status */
     protected $status;
+
+    /** @var string $specificStatus */
+    protected $specificStatus;
 
     /** @var string $colorState */
     protected $colorState;
