@@ -29,6 +29,7 @@ use Payever\Sdk\Payments\Enum\BusinessType;
  * @method float                            getMin()
  * @method float                            getMax()
  * @method string                           getPaymentMethod()
+ * @method string                           getPaymentIssuer()
  * @method string                           getType()
  * @method string                           getSlug()
  * @method string                           getThumbnail1()
@@ -48,6 +49,7 @@ use Payever\Sdk\Payments\Enum\BusinessType;
  * @method self                             setMin(float $min)
  * @method self                             setMax(float $max)
  * @method self                             setPaymentMethod(string $paymentMethod)
+ * @method self                             setPaymentIssuer(string $paymentIssuer)
  * @method self                             setType(string $type)
  * @method self                             setSlug(string $slug)
  * @method self                             setThumbnail1(string $thumbnail1)
@@ -94,6 +96,9 @@ abstract class AbstractPaymentOptionEntity extends ResultEntity
 
     /** @var string $paymentMethod */
     protected $paymentMethod;
+
+    /** @var string $paymentIssuer */
+    protected $paymentIssuer;
 
     /** @var string $type */
     protected $type;
