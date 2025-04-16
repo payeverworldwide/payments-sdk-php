@@ -58,6 +58,7 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_SWEDBANK_INVOICE              = 'swedbank_invoice';
     const METHOD_SWISH                         = 'swish';
     const METHOD_TRUSTLY                       = 'trustly';
+    const METHOD_VERIFONE_BNPL                 = 'verifone_bnpl';
     const METHOD_VERIFONE_CREDIT_CARD          = 'verifone_creditcard';
     const METHOD_ZINIA_BNPL                    = 'zinia_bnpl';
     const METHOD_ZINIA_BNPL_DE                 = 'zinia_bnpl_de';
@@ -105,7 +106,7 @@ class PaymentMethod extends EnumerableConstants
      * Checks if payment method should be hidden for current device
      *
      * @param string $method
-     * @param null/srting $userAgent
+     * @param null|string $userAgent
      *
      * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -205,6 +206,20 @@ class PaymentMethod extends EnumerableConstants
             static::METHOD_SANTANDER_DE_FACTORING,
             static::METHOD_SANTANDER_DE_INVOICE,
             static::METHOD_ALLIANZ_TRADE_B2B_BNPL,
+        ];
+    }
+
+    /**
+     * Returns payment methods that have a unique payment reference check
+     *
+     * @return array
+     */
+    public static function getUniqueReferenceMethods()
+    {
+        return [
+            static::METHOD_PAYPAL,
+            static::METHOD_HSBC,
+            static::METHOD_VERIFONE_BNPL,
         ];
     }
 
