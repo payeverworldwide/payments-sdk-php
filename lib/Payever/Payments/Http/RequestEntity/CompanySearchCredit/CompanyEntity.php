@@ -20,6 +20,8 @@ use Payever\Sdk\Core\Http\RequestEntity;
  *
  * @method string getExternalId()
  * @method self   setExternalId(string $id)
+ * @method string getName()
+ * @method self   setName(string $name)
  */
 class CompanyEntity extends RequestEntity
 {
@@ -27,6 +29,11 @@ class CompanyEntity extends RequestEntity
      * @var string
      */
     protected $externalId;
+
+	/**
+	 * @var string
+	 */
+	private $name;
 
     /**
      * {@inheritdoc}

@@ -15,10 +15,12 @@
 namespace Payever\Sdk\Payments\Notification\MessageEntity;
 
 use Payever\Sdk\Payments\Http\MessageEntity\RetrievePaymentResultEntity;
+use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCredit\CompanyEntity;
 
 /**
  * This class represents Notification Result Entity
  *
+ * @method CompanyEntity        getCompany()
  * @method float                getRefundAmount()
  * @method float                getCaptureAmount()
  * @method float                getCancelAmount()
@@ -41,6 +43,11 @@ use Payever\Sdk\Payments\Http\MessageEntity\RetrievePaymentResultEntity;
  */
 class NotificationResultEntity extends RetrievePaymentResultEntity
 {
+	/**
+	 * @var CompanyEntity
+	 */
+	protected $company;
+
     /**
      * Returns the total (partial) refunded amount for this transaction
      * @var float|null
@@ -88,4 +95,36 @@ class NotificationResultEntity extends RetrievePaymentResultEntity
      * @var float|null
      */
     protected $totalCanceledAmount;
+
+	/**
+	 * Set Company.
+	 *
+	 * @param CompanyEntity|array|string $company
+	 *
+	 * @return $this
+	 */
+	public function setCompany($company)
+	{
+		if (!$company) {
+			return $this;
+		}
+
+		if (is_string($company)) {
+			$company = json_decode($company);
+		}
+
+		if (is_array($company)) {
+			$this->company = new CompanyEntity($company);
+
+			return $this;
+		}
+
+		if ($company instanceof CompanyEntity) {
+			$this->company = $company;
+
+			return $this;
+		}
+
+		return $this;
+	}
 }
