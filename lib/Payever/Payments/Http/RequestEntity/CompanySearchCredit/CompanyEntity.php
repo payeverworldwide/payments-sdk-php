@@ -33,7 +33,7 @@ class CompanyEntity extends RequestEntity
 	/**
 	 * @var string
 	 */
-	private $name;
+	protected $name;
 
     /**
      * {@inheritdoc}
