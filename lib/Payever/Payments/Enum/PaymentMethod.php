@@ -59,7 +59,7 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_SWISH                         = 'swish';
     const METHOD_TRUSTLY                       = 'trustly';
     const METHOD_VERIFONE_BNPL                 = 'verifone_bnpl';
-    const METHOD_VERIFONE_CREDIT_CARD          = 'verifone_creditcard';
+    const METHOD_VERIFONE_CREDIT_CARD          = 'credit_card';
     const METHOD_ZINIA_BNPL                    = 'zinia_bnpl';
     const METHOD_ZINIA_BNPL_DE                 = 'zinia_bnpl_de';
     const METHOD_ZINIA_INSTALLMENT             = 'zinia_installment';

@@ -55,6 +55,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string                  getFrontendCancelUrl()
  * @method string                  getTransactionId()
  * @method string                  getRedirectUrl()
+ * @method string                  getCardBrand()
  * @method self                    setId(string $id)
  * @method self                    setDeliveryFee(float $deliveryFee)
  * @method self                    setPaymentFee(float $paymentFee)
@@ -89,6 +90,7 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self                    setFrontendCancelUrl(string $frontendCancelUrl)
  * @method self                    setTransactionId(string $transactionId)
  * @method self                    setRedirectUrl(string $redirectUrl)
+ * @method self                    setCardBrand(string $cardBrand)
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  * @SuppressWarnings(PHPMD.ShortVariable)
@@ -206,6 +208,9 @@ class PaymentDetailsEntity extends MessageEntity
 
     /** @var string */
     protected $redirectUrl;
+
+    /** @var string */
+    protected $cardBrand;
 
     /**
      * Sets Credit Calculation
