@@ -58,6 +58,7 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_SWEDBANK_INVOICE              = 'swedbank_invoice';
     const METHOD_SWISH                         = 'swish';
     const METHOD_TRUSTLY                       = 'trustly';
+    const METHOD_BNPL                          = 'bnpl';
     const METHOD_VERIFONE_BNPL                 = 'verifone_bnpl';
     const METHOD_VERIFONE_CREDIT_CARD          = 'credit_card';
     const METHOD_ZINIA_BNPL                    = 'zinia_bnpl';
@@ -220,6 +221,7 @@ class PaymentMethod extends EnumerableConstants
             static::METHOD_PAYPAL,
             static::METHOD_HSBC,
             static::METHOD_VERIFONE_BNPL,
+            static::METHOD_BNPL,
         ];
     }
 
@@ -237,16 +239,55 @@ class PaymentMethod extends EnumerableConstants
     }
 
     /**
-     * Returns B2B payment methods
+     * Whether payment method is for B2B business type
+     *
+     * @param string $method
+     *
+     * @return bool
+     */
+    public static function isB2BBusinessTypeMethod($method)
+    {
+        return in_array($method, static::getB2BBusinessTypeMethods());
+    }
+
+    /**
+     * Whether payment method is B2B payment method
+     *
+     * @param string $method
+     *
+     * @return bool
+     */
+    public static function isB2BMethod($method)
+    {
+        return in_array($method, static::getB2BMethods());
+    }
+
+    /**
+     * Returns B2B business type methods
      *
      * @return array
      */
-    private static function getB2bMethods()
+    private static function getB2BBusinessTypeMethods()
     {
         return [
             static::METHOD_ALLIANZ_TRADE_B2B_BNPL,
             static::METHOD_PSA_B2B_BNPL,
             static::METHOD_BFS_B2B_BNPL,
+        ];
+    }
+
+    /**
+     * Returns B2B payment methods
+     *
+     * @return array
+     */
+    private static function getB2BMethods()
+    {
+        return [
+            static::METHOD_ALLIANZ_TRADE_B2B_BNPL,
+            static::METHOD_PSA_B2B_BNPL,
+            static::METHOD_BFS_B2B_BNPL,
+            static::METHOD_BNPL,
         ];
     }
 
@@ -263,6 +304,8 @@ class PaymentMethod extends EnumerableConstants
             static::METHOD_PAYPAL,
             static::METHOD_STRIPE_CREDIT_CARD,
             static::METHOD_STRIPE_DIRECT_DEBIT,
+            static::METHOD_VERIFONE_CREDIT_CARD,
+            static::METHOD_BNPL,
         ];
     }
 
