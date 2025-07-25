@@ -357,7 +357,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function authorizePaymentRequest($paymentId, AuthorizePaymentRequest $paymentRequest = null)
+    public function authorizePaymentRequest($paymentId, AuthorizePaymentRequest $paymentRequest)
     {
         $this->configuration->assertLoaded();
 
@@ -365,7 +365,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
-            ->setRequestEntity($paymentRequest ?: new AuthorizePaymentRequest())
+            ->setRequestEntity($paymentRequest)
             ->setResponseEntity(new AuthorizePaymentResponse())
             ->build();
 
@@ -442,7 +442,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      */
     public function shippingGoodsPaymentRequest(
         $paymentId,
-        ShippingGoodsPaymentRequest $paymentRequest = null,
+        ShippingGoodsPaymentRequest $paymentRequest,
         $uniqueIdentifier = null
     ) {
         $this->configuration->assertLoaded();
@@ -452,7 +452,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
             ->contentTypeIsJson()
-            ->setRequestEntity($paymentRequest ?: new ShippingGoodsPaymentRequest())
+            ->setRequestEntity($paymentRequest)
             ->setResponseEntity(new ShippingGoodsPaymentResponse())
             ->addIdempotencyHeader($uniqueIdentifier)
             ->build();
@@ -541,7 +541,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest = null)
+    public function claimPaymentRequest($paymentId, ClaimPaymentRequest $paymentRequest)
     {
         $this->configuration->assertLoaded();
 
@@ -550,7 +550,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
             ->contentTypeIsJson()
-            ->setRequestEntity($paymentRequest ?: new ClaimPaymentRequest())
+            ->setRequestEntity($paymentRequest)
             ->setResponseEntity(new ClaimPaymentResponse())
             ->build();
 
@@ -562,7 +562,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function claimUploadPaymentRequest($paymentId, ClaimUploadPaymentRequest $paymentRequest = null)
+    public function claimUploadPaymentRequest($paymentId, ClaimUploadPaymentRequest $paymentRequest)
     {
         $this->configuration->assertLoaded();
 
@@ -571,7 +571,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
                 $this->getToken(OauthToken::SCOPE_PAYMENT_ACTIONS)->getAuthorizationString()
             )
             ->contentTypeIsJson()
-            ->setRequestEntity($paymentRequest ?: new ClaimUploadPaymentRequest())
+            ->setRequestEntity($paymentRequest)
             ->setResponseEntity(new ClaimUploadPaymentResponse())
             ->build();
 
@@ -583,7 +583,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function settlePaymentRequest($paymentId, SettlePaymentRequest $paymentRequest = null)
+    public function settlePaymentRequest($paymentId, $paymentRequest = null)
     {
         $this->configuration->assertLoaded();
 

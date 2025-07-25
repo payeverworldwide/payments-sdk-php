@@ -283,11 +283,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * Sends a request to settle payment
      *
      * @param string $paymentId Payment ID
-     * @param SettlePaymentRequest $paymentRequest Specify the settle payment request.
+     * @param SettlePaymentRequest|null $paymentRequest
      *
      * @return SettlePaymentResponse
      */
-    public function settlePaymentRequest($paymentId, SettlePaymentRequest $paymentRequest = null);
+    public function settlePaymentRequest($paymentId, $paymentRequest = null);
 
     /**
      * Requests serialized API Call record

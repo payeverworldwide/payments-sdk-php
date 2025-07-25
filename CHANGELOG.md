@@ -1,5 +1,45 @@
 # Changelog
 
+## [2.6.6]
+### Changed
+- `authorizePaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is mandatory
+- `shippingGoodsPaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is mandatory
+- `claimPaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is mandatory
+- `claimUploadPaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is mandatory
+- `settlePaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is optional
+
+## [2.6.5]
+### Changed
+- Updated payment method details
+
+## [2.6.4]
+### Changed
+- Added card brand to payment details entity
+
+## [2.6.3]
+### Changed
+- Company fix
+
+## [2.6.2]
+### Changed
+- Add verifone bnpl code
+
+## [2.6.1]
+### Added
+- Add payment issuer field
+
+## [2.6.0]
+### Changed
+- Update payment methods
+
+## [2.5.2]
+### Added
+- Added specific status to RetrievePaymentResultEntity
+
+## [2.5.1]
+### Changed
+- Improved CompanySearch entities
+
 ## [2.5.0]
 ### Added
 - Added business type property to AbstractPaymentOptionEntity
