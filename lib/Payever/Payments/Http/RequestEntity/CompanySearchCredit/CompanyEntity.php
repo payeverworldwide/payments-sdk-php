@@ -30,10 +30,10 @@ class CompanyEntity extends RequestEntity
      */
     protected $externalId;
 
-	/**
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * @var string
+     */
+    protected $name;
 
     /**
      * {@inheritdoc}

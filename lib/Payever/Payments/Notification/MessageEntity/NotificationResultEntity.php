@@ -43,10 +43,10 @@ use Payever\Sdk\Payments\Http\RequestEntity\CompanySearchCredit\CompanyEntity;
  */
 class NotificationResultEntity extends RetrievePaymentResultEntity
 {
-	/**
-	 * @var CompanyEntity
-	 */
-	protected $company;
+    /**
+     * @var CompanyEntity
+     */
+    protected $company;
 
     /**
      * Returns the total (partial) refunded amount for this transaction
@@ -96,35 +96,35 @@ class NotificationResultEntity extends RetrievePaymentResultEntity
      */
     protected $totalCanceledAmount;
 
-	/**
-	 * Set Company.
-	 *
-	 * @param CompanyEntity|array|string $company
-	 *
-	 * @return $this
-	 */
-	public function setCompany($company)
-	{
-		if (!$company) {
-			return $this;
-		}
+    /**
+     * Set Company.
+     *
+     * @param CompanyEntity|array|string $company
+     *
+     * @return $this
+     */
+    public function setCompany($company)
+    {
+        if (!$company) {
+            return $this;
+        }
 
-		if (is_string($company)) {
-			$company = json_decode($company);
-		}
+        if (is_string($company)) {
+            $company = json_decode($company);
+        }
 
-		if (is_array($company)) {
-			$this->company = new CompanyEntity($company);
+        if (is_array($company)) {
+            $this->company = new CompanyEntity($company);
 
-			return $this;
-		}
+            return $this;
+        }
 
-		if ($company instanceof CompanyEntity) {
-			$this->company = $company;
+        if ($company instanceof CompanyEntity) {
+            $this->company = $company;
 
-			return $this;
-		}
+            return $this;
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -52,7 +52,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\VerifyEntity;
  * @method AttributesEntity        getAttributes()
  * @method string                  getReference()
  * @method string                  getReferenceExtra()
- * @method string|null             getPaymentVariantId()
+ * @method string|null             getVariantId()
  * @method string|null             getPaymentMethod()
  * @method string|null             getPaymentIssuer()
  * @method array                   getPaymentMethods()
@@ -64,7 +64,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\VerifyEntity;
  * @method PaymentDataEntity|null  getPaymentData()
  * @method self                    setReference(string $id)
  * @method self                    setReferenceExtra(string $id)
- * @method self                    setPaymentVariantId(string|null $variantId)
+ * @method self                    setVariantId(string|null $variantId)
  * @method self                    setPaymentMethod(string $paymentMethod)
  * @method self                    setPaymentIssuer(string $paymentIssuer)
  * @method self                    setPaymentMethods(array $paymentMethods)
@@ -203,7 +203,7 @@ class CreatePaymentV3Request extends RequestEntity
     /**
      * @var string
      */
-    protected $paymentVariantId;
+    protected $variantId;
 
     /**
      * @var string

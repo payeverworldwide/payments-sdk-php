@@ -18,7 +18,7 @@ class StubServerListener implements TestListener
     use TestListenerDefaultImplementation;
 
     /** @var string */
-    protected $stubStartCmd = "/bin/bash vendor/bin/stub-server %s:%s";
+    protected $stubStartCmd = "php -S %s:%s ./vendor/payever/plugins-stub/server.php > /dev/null 2>&1 & echo $!";
 
     /** @var string */
     protected $stubServerPid;

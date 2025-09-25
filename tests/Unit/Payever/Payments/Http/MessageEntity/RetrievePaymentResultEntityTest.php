@@ -16,7 +16,8 @@ class RetrievePaymentResultEntityTest extends AbstractMessageEntityTest
 {
     protected static $scheme = array(
         'id' => 'stub',
-        'status' => 'active',
+        'status' => 'STATUS_IN_PROCESS',
+        'specific_status' => 'requires_capture',
         'color_state' => 'yellow',
         'merchant_name' => 'stub_merchant',
         'customer_name' => 'stub_customer',
@@ -32,7 +33,7 @@ class RetrievePaymentResultEntityTest extends AbstractMessageEntityTest
         'delivery_fee' => 0,
         'address' => array(),
         'payment_details' => array(),
-        'payment_details_array' => array('pan_id' => 'stub'),
+        'payment_details_array' => array('pan_id' => 'stub')
     );
 
     public static function getScheme()

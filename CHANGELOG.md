@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.7.0]
+### Changed
+- Updated payment request structure
+
 ## [2.6.6]
 ### Changed
 - `authorizePaymentRequest($paymentId, $paymentRequest)`. Parameter `$paymentRequest` is mandatory

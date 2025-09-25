@@ -22,7 +22,7 @@ use Payever\Sdk\Core\Http\MessageEntity\CallEntity;
  *
  * @method string           getStatus()
  * @method string           getId()
- * @method \DateTime|false      getCreatedAt()
+ * @method \DateTime|false  getCreatedAt()
  * @method string           getChannel()
  * @method float            getAmount()
  * @method float            getPaymentFee()
