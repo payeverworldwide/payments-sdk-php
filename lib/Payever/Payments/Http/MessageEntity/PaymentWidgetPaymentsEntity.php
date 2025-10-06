@@ -20,11 +20,13 @@ use Payever\Sdk\Core\Http\RequestEntity;
  *
  * @method string                    getId()
  * @method string                    getPaymentMethod()
+ * @method string                    getPaymentIssuer()
  * @method string                    getConnectionId()
  * @method boolean                   getEnabled()
  * @method boolean                   getIsBNPL()
  * @method self                      setId(string $id)
  * @method self                      setPaymentMethod(string $paymentMethod)
+ * @method self                      setPaymentIssuer(string $paymentIssuer)
  * @method self                      setConnectionId(string $connectionId)
  * @method self                      setEnabled(boolean $enabled)
  * @method boolean                   setIsBNPL(boolean $isBNPL)
@@ -42,6 +44,11 @@ class PaymentWidgetPaymentsEntity extends RequestEntity
      * @var string
      */
     protected $paymentMethod;
+
+    /**
+     * @var string
+     */
+    protected $paymentIssuer;
 
     /**
      * @var string
