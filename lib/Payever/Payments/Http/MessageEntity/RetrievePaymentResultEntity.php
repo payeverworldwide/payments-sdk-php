@@ -28,6 +28,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method string               getCustomerName()
  * @method string               getCustomerEmail()
  * @method string               getPaymentType()
+ * @method string               getPaymentIssuer()
  * @method string               getLastAction()
  * @method \DateTime|false      getCreatedAt()
  * @method \DateTime|false      getUpdatedAt()
@@ -54,6 +55,7 @@ use Payever\Sdk\Core\Http\MessageEntity\ResultEntity;
  * @method self                 setCustomerName(string $customerName)
  * @method self                 setCustomerEmail(string $customerEmail)
  * @method self                 setPaymentType(string $paymentType)
+ * @method self                 setPaymentIssuer(string $paymentIssuer)
  * @method self                 setLastAction(string $lastAction)
  * @method self                 setChannel(string $channel)
  * @method self                 setReference(string $reference)
@@ -94,6 +96,9 @@ class RetrievePaymentResultEntity extends ResultEntity
 
     /** @var string $paymentType */
     protected $paymentType;
+
+    /** @var string $paymentIssuer */
+    protected $paymentIssuer;
 
     /** @var string $lastAction */
     protected $lastAction;
