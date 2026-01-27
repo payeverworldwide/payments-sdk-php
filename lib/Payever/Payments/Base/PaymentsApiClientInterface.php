@@ -23,6 +23,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\ClaimUploadPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV2Request;
 use Payever\Sdk\Payments\Http\RequestEntity\CreatePaymentV3Request;
+use Payever\Sdk\Payments\Http\RequestEntity\EditPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SettlePaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\SubmitPaymentRequestV3;
@@ -30,6 +31,7 @@ use Payever\Sdk\Payments\Http\RequestEntity\ListPaymentsRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\ShippingGoodsPaymentRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\PaymentItemEntity;
 use Payever\Sdk\Payments\Http\ResponseEntity\ClaimPaymentResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\EditPaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\InvoicePaymentResponse;
 use Payever\Sdk\Payments\Http\ResponseEntity\SettlePaymentResponse;
 
@@ -254,6 +256,18 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      * @return InvoicePaymentResponse
      */
     public function invoicePaymentRequest($paymentId, $amount = null, $uniqueIdentifier = null);
+
+    /**
+     * Sends a request to edit payment
+     *
+     * @link https://docs.payever.org/api/payments/order-management/edit Documentation
+     *
+     * @param string $paymentId Payment ID
+     * @param EditPaymentRequest $paymentRequest Specify the claim payment request.
+     *
+     * @return EditPaymentResponse
+     */
+    public function editPaymentRequest($paymentId, EditPaymentRequest $paymentRequest);
 
     /**
      * Sends a request to claim payment
