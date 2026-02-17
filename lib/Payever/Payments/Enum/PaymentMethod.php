@@ -22,6 +22,7 @@ use Payever\Sdk\Core\Base\EnumerableConstants;
 class PaymentMethod extends EnumerableConstants
 {
     const METHOD_APPLE_PAY                     = 'apple_pay';
+    const METHOD_BNPL                          = 'bnpl';
     const METHOD_CASH                          = 'cash';
     const METHOD_ECOCHEQUE                     = 'ecocheque';
     const METHOD_GOOGLE_PAY                    = 'google_pay';
@@ -37,6 +38,8 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_PAYMILL_DIRECT_DEBIT          = 'paymill_directdebit';
     const METHOD_PAYPAL                        = 'paypal';
     const METHOD_PAY_BY_BANK                   = 'pay_by_bank';
+    const METHOD_RESURS_INSTALLMENT            = 'resurs_installment';
+    const METHOD_RESURS_INVOICE                = 'resurs_invoice';
     const METHOD_SANTANDER_DE_CCP_INSTALLMENT  = 'santander_ccp_installment';
     const METHOD_SANTANDER_DE_FACTORING        = 'santander_factoring_de';
     const METHOD_SANTANDER_DE_INSTALLMENT      = 'santander_installment';
@@ -58,7 +61,6 @@ class PaymentMethod extends EnumerableConstants
     const METHOD_SWEDBANK_INVOICE              = 'swedbank_invoice';
     const METHOD_SWISH                         = 'swish';
     const METHOD_TRUSTLY                       = 'trustly';
-    const METHOD_BNPL                          = 'bnpl';
     const METHOD_VERIFONE_BNPL                 = 'verifone_bnpl';
     const METHOD_VERIFONE_CREDIT_CARD          = 'credit_card';
     const METHOD_ZINIA_BNPL                    = 'zinia_bnpl';
