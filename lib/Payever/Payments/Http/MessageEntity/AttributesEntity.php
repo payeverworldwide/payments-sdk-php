@@ -18,9 +18,11 @@ use Payever\Sdk\Core\Base\MessageEntity;
 /**
  * This class represents Attributes Entity of Cart Item
  *
- * @method float getWeight()
+ * @method float                  getWeight()
  * @method DimensionsEntity|array getDimensions()
- * @method self setWeight(float $value)
+ * @method string                 getGtin()
+ * @method self                   setWeight(float $value)
+ * @method self                   setGtin(string $gtin)
  */
 class AttributesEntity extends MessageEntity
 {
@@ -33,6 +35,11 @@ class AttributesEntity extends MessageEntity
      * @var DimensionsEntity
      */
     protected $dimensions;
+
+    /**
+     * @var string
+     */
+    protected $gtin;
 
     /**
      * Sets Dimensions.
