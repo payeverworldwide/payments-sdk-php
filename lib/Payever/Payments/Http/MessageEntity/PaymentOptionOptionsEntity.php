@@ -18,9 +18,10 @@ use Payever\Sdk\Core\Base\MessageEntity;
 /**
  * This class represents Payment Option Options Entity
  *
- * @method array getCurrencies()
- * @method array getCountries()
- * @method array getActions()
+ * @method array                           getCurrencies()
+ * @method array                           getCountries()
+ * @method array                           getActions()
+ * @method PaymentOptionAmountLimitsEntity getAmountLimits()
  * @method self  setCurrencies(array $currencies)
  * @method self  setCountries(array $countries)
  * @method self  setActions(array $actions)
@@ -35,4 +36,21 @@ class PaymentOptionOptionsEntity extends MessageEntity
 
     /** @var array $actions */
     protected $actions;
+
+    /** @var array $amountLimits */
+    protected $amountLimits;
+
+    /**
+     * Sets Options
+     *
+     * @param array $amountLimits
+     *
+     * @return $this
+     */
+    public function setAmountLimits($amountLimits)
+    {
+        $this->amountLimits = new PaymentOptionAmountLimitsEntity($amountLimits);
+
+        return $this;
+    }
 }
