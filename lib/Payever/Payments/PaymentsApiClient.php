@@ -607,7 +607,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
      *
      * @throws \Exception
      */
-    public function settlePaymentRequest($paymentId, $paymentRequest = null)
+    public function settlePaymentRequest($paymentId, $paymentRequest = null, $uniqueIdentifier = null)
     {
         $this->configuration->assertLoaded();
 
@@ -618,6 +618,7 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
             ->contentTypeIsJson()
             ->setRequestEntity($paymentRequest ?: new SettlePaymentRequest())
             ->setResponseEntity(new SettlePaymentResponse())
+            ->addIdempotencyHeader($uniqueIdentifier)
             ->build();
 
         return $this->executeRequest($request);

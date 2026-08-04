@@ -298,10 +298,11 @@ interface PaymentsApiClientInterface extends CommonApiClientInterface
      *
      * @param string $paymentId Payment ID
      * @param SettlePaymentRequest|null $paymentRequest
+     * @param string|null $uniqueIdentifier Action Identifier
      *
      * @return SettlePaymentResponse
      */
-    public function settlePaymentRequest($paymentId, $paymentRequest = null);
+    public function settlePaymentRequest($paymentId, $paymentRequest = null, $uniqueIdentifier = null);
 
     /**
      * Requests serialized API Call record

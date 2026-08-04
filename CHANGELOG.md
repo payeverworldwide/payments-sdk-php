@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.8.5]
+### Changed
+- Add idempotency header support to settlePaymentRequest
+
 ## [2.7.0]
 ### Changed
 - Updated payment request structure
