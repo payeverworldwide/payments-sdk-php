@@ -88,8 +88,8 @@ class PaymentsApiClient extends CommonApiClient implements PaymentsApiClientInte
     const SUB_URL_INVOICE_PAYMENT = 'api/payment/invoice/%s';
     const SUB_URL_SETTLE_PAYMENT = 'api/payment/settle/%s';
     const SUB_URL_RETRIEVE_API_CALL = 'api/%s';
-    const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/oauth/%s/payment-options/%s';
-    const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/oauth/%s/payment-options/variants/%s';
+    const SUB_URL_LIST_PAYMENT_OPTIONS = 'api/shop/%s/payment-options/%s';
+    const SUB_URL_LIST_PAYMENT_OPTIONS_VARIANTS = 'api/shop/%s/payment-options/variants/%s';
     const SUB_URL_SETTINGS = 'api/shop/%s/settings/%s';
     const SUB_URL_TRANSACTION = 'api/rest/v1/transactions/%s';
 
