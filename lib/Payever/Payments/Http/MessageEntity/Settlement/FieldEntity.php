@@ -42,12 +42,4 @@ class FieldEntity extends MessageEntity
             'field',
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray($object = null)
-    {
-        return $object ? get_object_vars($object) : get_object_vars($this);
-    }
 }

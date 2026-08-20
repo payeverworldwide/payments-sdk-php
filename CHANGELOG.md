@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.9.0]
+### Added
+- Implemented the settlement report methods in `SettlementApiClient`
+
 ## [2.8.5]
 ### Changed
 - Add idempotency header support to settlePaymentRequest

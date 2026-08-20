@@ -3,7 +3,7 @@
 namespace Payever\Sdk\Payments\Http\MessageEntity\Settlement;
 
 use Payever\Sdk\Core\Base\MessageEntity;
-use Payever\Sdk\Payments\Http\MessageEntity\Settlement\Filter\PaymentMethod;
+use Payever\Sdk\Payments\Http\MessageEntity\Settlement\Filter\PaymentMethodEntity;
 
 /**
  * @method string                 getStartDate()
@@ -11,10 +11,12 @@ use Payever\Sdk\Payments\Http\MessageEntity\Settlement\Filter\PaymentMethod;
  * @method string                 getCurrency()
  * @method string                 getOperationType()
  * @method PaymentMethod[]        getPaymentMethods()
+ * @method string                 getSettlementStatus()
  * @method self                   setStartDate(string $startDate)
  * @method self                   setEndDate(string $endDate)
  * @method self                   setCurrency(string $currency)
  * @method self                   setOperationType(string $operationType)
+ * @method self                   setSettlementStatus(string $settlementStatus)
  */
 class FilterEntity extends MessageEntity
 {
@@ -44,7 +46,12 @@ class FilterEntity extends MessageEntity
     protected $paymentMethods;
 
     /**
-     * @param PaymentMethod[]|string $paymentMethods
+     * @var string
+     */
+    protected $settlementStatus;
+
+    /**
+     * @param PaymentMethodEntity[]|string $paymentMethods
      * @return self
      */
     public function setPaymentMethods($paymentMethods)
@@ -62,10 +69,22 @@ class FilterEntity extends MessageEntity
         }
 
         $this->paymentMethods = [];
-        foreach ($paymentMethods as $paymentMethod) {
-            $this->paymentMethods[] = new PaymentMethod($paymentMethod);
+        foreach ($paymentMethods as $name) {
+            if (!$name) {
+                continue;
+            }
+
+            if ($name instanceof PaymentMethodEntity) {
+                $this->paymentMethods[] = $name;
+                continue;
+            }
+
+            $paymentMethod = new PaymentMethodEntity();
+            $paymentMethod->setName($name);
+            $this->paymentMethods[] = $paymentMethod;
         }
 
         return $this;
     }
+
 }

@@ -18,20 +18,13 @@ use Payever\Sdk\Payments\Http\MessageEntity\Settlement\FieldEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\Settlement\FilterEntity;
 
 /**
- * @method string                 getReference()
- * @method self                   setReference(string $reference)
  * @method FieldEntity[]          getFields()
  * @method FilterEntity           getFilter()
  * @method string                 getFormat()
  * @method self                   setFormat(string $format)
  */
-class GetReportRequest extends RequestEntity
+class CreateSettlementReportRequest extends RequestEntity
 {
-    /**
-     * @var string
-     */
-    protected $reference;
-
     /**
      * @var array
      */
@@ -53,10 +46,8 @@ class GetReportRequest extends RequestEntity
     public function getRequired()
     {
         return [
-            'reference',
             'filter',
-            'format',
-            'fields',
+            'format'
         ];
     }
 
@@ -90,7 +81,7 @@ class GetReportRequest extends RequestEntity
         }
 
         if (is_string($fields)) {
-            $cart = json_decode($fields);
+            $fields = json_decode($fields);
         }
 
         if (!is_array($fields)) {
@@ -130,13 +121,5 @@ class GetReportRequest extends RequestEntity
         $this->filter = new FilterEntity($filter);
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray($object = null)
-    {
-        return $object ? get_object_vars($object) : get_object_vars($this);
     }
 }

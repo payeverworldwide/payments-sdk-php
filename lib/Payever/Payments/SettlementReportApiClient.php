@@ -15,53 +15,63 @@ namespace Payever\Sdk\Payments;
 
 use Payever\Sdk\Payments\Http\MessageEntity\Settlement\FieldEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\Settlement\FilterEntity;
-use Payever\Sdk\Payments\Http\RequestEntity\CreateReportRequest;
-use Payever\Sdk\Payments\Http\RequestEntity\GetReportRequest;
+use Payever\Sdk\Payments\Http\RequestEntity\CreateSettlementReportRequest;
 use Payever\Sdk\Payments\Http\RequestEntity\RetrieveSettlementReportRequest;
-use Payever\Sdk\Payments\Http\ResponseEntity\CreateReportResponse;
-use Payever\Sdk\Payments\Http\ResponseEntity\GetReportResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\RetrieveSettlementReportResponse;
+use Payever\Sdk\Payments\Http\ResponseEntity\CreateSettlementReportResponse;
+use Payever\Sdk\Payments\Enum\Settlement\Format;
 use Payever\Sdk\Core\Authorization\OauthToken;
 use Payever\Sdk\Core\Http\RequestBuilder;
 
-class SettlementApiClient extends PaymentsApiClient
+class SettlementReportApiClient extends PaymentsApiClient
 {
-    const URL_SANDBOX = 'https://web-widgets-backend.staging.devpayever.com/';
-    const URL_LIVE    = 'https://web-widgets-backend.payever.org/';
-
     const SUB_URL_CREATE_SETTLEMENT_REPORT = 'api/v2/settlement/report';
-    const SUB_URL_GET_SETTLEMENT_REPORT = 'api/v2/settlement/report/%s';
+    const SUB_URL_CREATE_SETTLEMENT_REPORT_BY_REFERENCE = 'api/v2/settlement/report/%s';
     const SUB_URL_RETRIEVE_SETTLEMENT_REPORT = 'api/settlement/report/%s';
 
     /**
-     * Create Settlement Report
+     * Generate a settlement report for all payments.
      * @see https://docs.payever.org/api/payments/v3/settlement-files/create-settlement-report
      *
      * @param FilterEntity $filter
      * @param FieldEntity[] $fields
      * @param string $format
-     * @param string|null $uniqueIdentifier
-     *
+     * @param int $page Pagination. For JSON format only
+     * @param int $limit Pagination. For JSON format only
      * @return \Payever\Sdk\Core\Http\Response
      * @throws \Exception
      */
-    public function createReport($filter, $fields, $format = 'json', $uniqueIdentifier = null)
-    {
+    public function createSettlementReport(
+        $filter,
+        $fields,
+        $format = Format::JSON,
+        $page = 0,
+        $limit = 20
+    ) {
+        if ($format !== Format::JSON && $page) {
+            throw new \InvalidArgumentException('Query Parameters are applicable for JSON format only');
+        }
+
         $this->configuration->assertLoaded();
 
-        $requestEntity = new CreateReportRequest();
+        $requestEntity = new CreateSettlementReportRequest();
         $requestEntity
             ->setFilter($filter)
             ->setFields($fields)
             ->setFormat($format);
 
-        $request = RequestBuilder::post($this->getCreateSettlementReportUrl())
+        $url = $this->getCreateSettlementReportUrl();
+        if ($page) {
+            $url .= sprintf('?page=%d&limit=%d', $page, $limit);
+        }
+
+        $request = RequestBuilder::post($url)
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_INFO)->getAuthorizationString()
             )
             ->contentTypeIsJson()
             ->setRequestEntity($requestEntity)
-            ->setResponseEntity(new CreateReportResponse())
-            ->addIdempotencyHeader($uniqueIdentifier)
+            ->setResponseEntity(new CreateSettlementReportResponse())
             ->build();
 
         return $this->executeRequest($request, OauthToken::SCOPE_PAYMENT_INFO);
@@ -75,44 +85,59 @@ class SettlementApiClient extends PaymentsApiClient
      * @param FilterEntity $filter
      * @param FieldEntity[] $fields
      * @param string $format
-     * @param string|null $uniqueIdentifier
-     *
+     * @param int $page Pagination. For JSON format only
+     * @param int $limit Pagination. For JSON format only
      * @return \Payever\Sdk\Core\Http\Response
      * @throws \Exception
      */
-    public function createSettlementReport($reference, $filter, $fields, $format = 'json', $uniqueIdentifier = null)
-    {
+    public function retrieveSettlementReportByReference(
+        $reference,
+        $filter,
+        $fields,
+        $format = Format::JSON,
+        $page = 0,
+        $limit = 20
+    ) {
+        if ($format !== Format::JSON && $page) {
+            throw new \InvalidArgumentException('Query Parameters are applicable for JSON format only');
+        }
+
         $this->configuration->assertLoaded();
 
-        $requestEntity = new GetReportRequest();
+        $requestEntity = new CreateSettlementReportRequest();
         $requestEntity
             ->setReference($reference)
             ->setFilter($filter)
             ->setFields($fields)
             ->setFormat($format);
 
-        $request = RequestBuilder::post($this->getGetSettlementReportUrl($reference))
+        $url = $this->getCreateSettlementReportByReferenceUrl($reference);
+        if ($page) {
+            $url .= sprintf('?page=%d&limit=%d', $page, $limit);
+        }
+
+        $request = RequestBuilder::post($url)
             ->addRawHeader(
                 $this->getToken(OauthToken::SCOPE_PAYMENT_INFO)->getAuthorizationString()
             )
             ->contentTypeIsJson()
             ->setRequestEntity($requestEntity)
-            ->setResponseEntity(new GetReportResponse())
-            ->addIdempotencyHeader($uniqueIdentifier)
+            ->setResponseEntity(new CreateSettlementReportResponse())
             ->build();
 
         return $this->executeRequest($request, OauthToken::SCOPE_PAYMENT_INFO);
     }
 
     /**
+     * Retrieve a settlement report for a specific report ID.
      * @see https://docs.payever.org/api/payments/v3/settlement-files/retrieve-settlement-report
-     * @param $reportId
-     * @param $uniqueIdentifier
+     *
+     * @param string $reportId The unique identifier for the settlement report.
      *
      * @return \Payever\Sdk\Core\Http\Response
      * @throws \Exception
      */
-    public function retrieveSettlementReport($reportId, $uniqueIdentifier = null)
+    public function retrieveSettlementReport($reportId)
     {
         $this->configuration->assertLoaded();
 
@@ -123,11 +148,33 @@ class SettlementApiClient extends PaymentsApiClient
             ->contentTypeIsJson()
             ->setRequestEntity(new RetrieveSettlementReportRequest())
             ->setResponseEntity(new RetrieveSettlementReportResponse())
-            ->addIdempotencyHeader($uniqueIdentifier)
             ->build();
 
         return $this->executeRequest($request, OauthToken::SCOPE_PAYMENT_INFO);
+    }
 
+    /**
+     * Retrieve the contents of a settlement report based on the given report ID.
+     * @see https://docs.payever.org/api/payments/v3/settlement-files/retrieve-settlement-report
+     *
+     * @param string $reportId Identifier of the settlement report to retrieve.
+     *
+     * @return \Payever\Sdk\Core\Http\Response
+     * @throws \Exception
+     */
+    public function retrieveSettlementReportContents($reportId)
+    {
+        $this->configuration->assertLoaded();
+
+        $request = RequestBuilder::get($this->getRetrieveSettlementReportUrl($reportId))
+            ->addRawHeader(
+                $this->getToken(OauthToken::SCOPE_PAYMENT_INFO)->getAuthorizationString()
+            );
+
+        return $this->fetchRequest(
+            $request->build(),
+            OauthToken::SCOPE_PAYMENT_INFO
+        );
     }
 
     /**
@@ -140,21 +187,25 @@ class SettlementApiClient extends PaymentsApiClient
 
     /**
      * @param string $reference
+     *
      * @return string
      */
-    protected function getGetSettlementReportUrl($reference)
+    protected function getCreateSettlementReportByReferenceUrl($reference)
     {
         return $this->getBaseUrl() .
-               sprintf(self::SUB_URL_GET_SETTLEMENT_REPORT, $reference);
+               sprintf(self::SUB_URL_CREATE_SETTLEMENT_REPORT_BY_REFERENCE, $reference);
     }
 
     /**
      * @param string $reportId
+     *
      * @return string
      */
     protected function getRetrieveSettlementReportUrl($reportId)
     {
-        return $this->getBaseUrl() .
-               sprintf(self::SUB_URL_RETRIEVE_SETTLEMENT_REPORT, $reportId);
+        return sprintf(
+            $this->getBaseUrl() . self::SUB_URL_RETRIEVE_SETTLEMENT_REPORT,
+            $reportId
+        );
     }
 }

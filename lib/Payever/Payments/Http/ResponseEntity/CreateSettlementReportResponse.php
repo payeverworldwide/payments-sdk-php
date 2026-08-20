@@ -21,7 +21,7 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method string getStatus()
  * @method self   setStatus(string $status)
  */
-class CreateReportResponse extends ResponseEntity
+class CreateSettlementReportResponse extends ResponseEntity
 {
     /**
      * @var string

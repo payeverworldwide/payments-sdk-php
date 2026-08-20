@@ -3,6 +3,7 @@
 namespace Payever\Sdk\Payments\Http\ResponseEntity;
 
 use Payever\Sdk\Core\Http\ResponseEntity;
+use Payever\Sdk\Payments\Http\MessageEntity\RetrieveSettlementReportResultEntity;
 
 /**
  * @method string getLimit()
@@ -14,7 +15,6 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method string getTotalPages()
  * @method self   setTotalPages(string $totalPages)
  * @method array  getResult()
- * @method self   setResult(array $result)
  */
 class RetrieveSettlementReportResponse extends ResponseEntity
 {
@@ -42,4 +42,15 @@ class RetrieveSettlementReportResponse extends ResponseEntity
      * @var array
      */
     protected $result;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setResult($result)
+    {
+        $this->result = [];
+        foreach ($result as $item) {
+            $this->result[] = new RetrieveSettlementReportResultEntity($item);
+        }
+    }
 }
