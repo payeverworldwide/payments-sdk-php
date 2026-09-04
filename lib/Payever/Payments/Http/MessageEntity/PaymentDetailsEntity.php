@@ -56,6 +56,12 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method string                  getTransactionId()
  * @method string                  getRedirectUrl()
  * @method string                  getCardBrand()
+ * @method string                  getSessionId()
+ * @method string                  getAuthenticationId()
+ * @method string                  getSubscriptionId()
+ * @method string                  getCaptureId()
+ * @method string                  getIsAutoCaptureStarted()
+ * @method string                  getReuseToken()
  * @method self                    setId(string $id)
  * @method self                    setDeliveryFee(float $deliveryFee)
  * @method self                    setPaymentFee(float $paymentFee)
@@ -91,6 +97,12 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self                    setTransactionId(string $transactionId)
  * @method self                    setRedirectUrl(string $redirectUrl)
  * @method self                    setCardBrand(string $cardBrand)
+ * @method self                    setSessionId(string $sessionId)
+ * @method self                    setAuthenticationId(string $authenticationId)
+ * @method self                    setSubscriptionId(string $subscriptionId)
+ * @method self                    setCaptureId(string $captureId)
+ * @method self                    setIsAutoCaptureStarted(string $isAutoCaptureStarted)
+ * @method self                    setReuseToken(string $reuseToken)
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  * @SuppressWarnings(PHPMD.ShortVariable)
@@ -209,8 +221,26 @@ class PaymentDetailsEntity extends MessageEntity
     /** @var string */
     protected $redirectUrl;
 
-    /** @var string */
+    /** @var string $cardBrand */
     protected $cardBrand;
+
+    /** @var string $sessionId */
+    protected $sessionId;
+
+    /** @var string $authenticationId */
+    protected $authenticationId;
+
+    /** @var string $subscriptionId */
+    protected $subscriptionId;
+
+    /** @var string $captureId */
+    protected $captureId;
+
+    /** @var string $isAutoCaptureStarted */
+    protected $isAutoCaptureStarted;
+
+    /** @var string $reuseToken */
+    protected $reuseToken;
 
     /**
      * Sets Credit Calculation

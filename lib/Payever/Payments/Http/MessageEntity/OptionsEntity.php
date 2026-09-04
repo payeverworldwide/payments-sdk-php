@@ -32,6 +32,8 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method bool getPhoneMandatory()
  * @method bool getBirthdateMandatory()
  * @method bool getTestMode()
+ * @method bool getReusable()
+ * @method bool getAllowTokens()
  * @method self setAllowSeparateShippingAddress(string $value)
  * @method self setAllowCustomerTypes(array $value)
  * @method self setAllowPaymentMethods(array $value)
@@ -46,6 +48,8 @@ use Payever\Sdk\Core\Base\MessageEntity;
  * @method self setPhoneMandatory(bool $value)
  * @method self setBirthdateMandatory(bool $value)
  * @method self setTestMode(bool $value)
+ * @method self setReusable(bool $value)
+ * @method self setAllowTokens(bool $value)
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
@@ -120,4 +124,14 @@ class OptionsEntity extends MessageEntity
      * @var bool
      */
     protected $testMode;
+
+    /**
+     * @var bool
+     */
+    protected $reusable;
+
+    /**
+     * @var bool
+     */
+    protected $allowTokens;
 }

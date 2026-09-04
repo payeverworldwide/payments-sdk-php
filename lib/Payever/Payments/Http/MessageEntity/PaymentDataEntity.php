@@ -91,7 +91,7 @@ class PaymentDataEntity extends MessageEntity
     /**
      * Sets force redirect value
      *
-     * @param string $forceRedirect
+     * @param boolean $forceRedirect
      *
      * @return $this
      */

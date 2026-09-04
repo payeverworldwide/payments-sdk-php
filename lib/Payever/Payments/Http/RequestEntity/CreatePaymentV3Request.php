@@ -30,6 +30,7 @@ use Payever\Sdk\Payments\Http\MessageEntity\SplitItemEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\CartItemV3Entity;
 use Payever\Sdk\Payments\Http\MessageEntity\ChannelEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\PaymentDataEntity;
+use Payever\Sdk\Payments\Http\MessageEntity\SubscriptionEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\UrlsEntity;
 use Payever\Sdk\Payments\Http\MessageEntity\VerifyEntity;
 
@@ -129,6 +130,11 @@ class CreatePaymentV3Request extends RequestEntity
      * @var UrlsEntity
      */
     protected $urls;
+
+    /**
+     * @var SubscriptionEntity
+     */
+    protected $subscription;
 
     /**
      * @var VerifyEntity
@@ -443,6 +449,23 @@ class CreatePaymentV3Request extends RequestEntity
         $urls = DataHelper::getEntityInstance($urls, UrlsEntity::class);
         if ($urls) {
             $this->urls = $urls;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets Subscription
+     *
+     * @param SubscriptionEntity|array $subscription
+     *
+     * @return $this
+     */
+    public function setSubscription($subscription)
+    {
+        $subscription = DataHelper::getEntityInstance($subscription, SubscriptionEntity::class);
+        if ($subscription) {
+            $this->subscription = $subscription;
         }
 
         return $this;
