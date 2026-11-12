@@ -22,18 +22,22 @@ use Payever\Sdk\Payments\Http\MessageEntity\PaymentWidgetPaymentsEntity;
  * @method string                        getId()
  * @method string                        getBusinessId()
  * @method string                        getCheckoutId()
+ * @method string                        getChannelSet()
  * @method string                        getCheckoutMode()
  * @method string                        getName()
  * @method string                        getType()
  * @method boolean                       getIsVisible()
  * @method PaymentWidgetPaymentsEntity[] getPayments()
+ * @method string                        getVersion()
  * @method self                          setId(string $id)
  * @method self                          setBusinessId(string $businessId)
  * @method self                          setCheckoutId(string $checkoutId)
+ * @method self                          setChannelSet(string $channelSet)
  * @method self                          setCheckoutMode(string $checkoutMode)
  * @method self                          setType(string $type)
  * @method self                          setName(string $name)
  * @method self                          setIsVisible(boolean $isVisible)
+ * @method self                          setVersion(string $version)
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
@@ -57,6 +61,11 @@ class PaymentWidgetsResultEntity extends ResultEntity
     /**
      * @var string
      */
+    protected $channelSet;
+
+    /**
+     * @var string
+     */
     protected $checkoutMode;
 
     /**
@@ -68,6 +77,12 @@ class PaymentWidgetsResultEntity extends ResultEntity
      * @var string
      */
     protected $type;
+
+    /**
+     * @var string
+     */
+    protected $version;
+
 
     /**
      * @var boolean
